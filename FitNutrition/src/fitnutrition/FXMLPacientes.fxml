@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="433.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLPacientesController">
+   <children>
+      <Label layoutX="28.0" layoutY="25.0" text="Control Pacientes">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="571.0" layoutY="54.0" mnemonicParsing="false" onAction="#clicAgregar" text="Agregar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tbPacientes" layoutX="14.0" layoutY="94.0" prefHeight="307.0" prefWidth="671.0">
+        <columns>
+          <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
+          <TableColumn fx:id="colApellidos" prefWidth="140.0" text="Apellidos" />
+            <TableColumn fx:id="colFNac" prefWidth="75.0" text="Fecha Nacimiento" />
+            <TableColumn fx:id="colGenero" prefWidth="75.0" text="Genero" />
+            <TableColumn fx:id="colPeso" prefWidth="75.0" text="Peso" />
+            <TableColumn fx:id="colEstatura" prefWidth="75.0" text="Estatura" />
+            <TableColumn fx:id="colTalla" prefWidth="75.0" text="Talla" />
+            <TableColumn fx:id="colMedico" prefWidth="75.0" text="Medico" />
+        </columns>
+      </TableView>
+      <TextField fx:id="tfBuscar" layoutX="23.0" layoutY="56.0" prefHeight="25.0" prefWidth="282.0" promptText="Buscar por nombre" />
+      <Button layoutX="316.0" layoutY="56.0" mnemonicParsing="false" text="Buscar" />
+   </children>
+</AnchorPane>

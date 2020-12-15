@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="546.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLFormularioAgregaPacienteController">
+   <children>
+      <Label layoutX="14.0" layoutY="21.0" text="Agregar Paciente">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="79.0" text="Nombre" />
+      <TextField fx:id="lbNombre" layoutX="69.0" layoutY="75.0" prefHeight="25.0" prefWidth="198.0" />
+      <Label layoutX="12.0" layoutY="115.0" text="Apellidos" />
+      <TextField fx:id="lbApellidos" layoutX="69.0" layoutY="111.0" prefHeight="25.0" prefWidth="198.0" />
+      <Label layoutX="11.0" layoutY="149.0" text="Fecha Nacimiento" />
+      <TextField layoutX="118.0" layoutY="145.0" prefHeight="25.0" prefWidth="167.0" />
+      <Label layoutX="17.0" layoutY="188.0" text="Genero" />
+      <TextField fx:id="lbGenero" layoutX="76.0" layoutY="184.0" prefHeight="25.0" prefWidth="167.0" />
+      <Label layoutX="14.0" layoutY="224.0" text="Peso" />
+      <TextField fx:id="lbPeso" layoutX="44.0" layoutY="220.0" prefHeight="25.0" prefWidth="50.0" />
+      <Label layoutX="125.0" layoutY="224.0" text="Estatura" />
+      <TextField fx:id="lbEstatura" layoutX="181.0" layoutY="220.0" prefHeight="25.0" prefWidth="66.0" />
+      <Label layoutX="285.0" layoutY="224.0" text="Talla" />
+      <TextField fx:id="lbTalla" layoutX="324.0" layoutY="220.0" prefHeight="25.0" prefWidth="66.0" />
+      <Label layoutX="13.0" layoutY="265.0" text="Email" />
+      <TextField fx:id="lbEmail" layoutX="44.0" layoutY="261.0" prefHeight="25.0" prefWidth="246.0" />
+      <Label layoutX="10.0" layoutY="304.0" text="Telefono" />
+      <TextField fx:id="lbTelefono" layoutX="63.0" layoutY="300.0" />
+      <Label layoutX="11.0" layoutY="344.0" text="Domicilio" />
+      <TextField fx:id="lbDomicilio" layoutX="63.0" layoutY="340.0" prefHeight="25.0" prefWidth="336.0" />
+      <Label layoutX="14.0" layoutY="381.0" text="Medico" />
+      <TextField fx:id="lbMedico" layoutX="63.0" layoutY="377.0" prefHeight="25.0" prefWidth="188.0" />
+      <Label layoutX="413.0" layoutY="79.0" text="Imagen Paciente" />
+      <Button layoutX="517.0" layoutY="68.0" mnemonicParsing="false" onAction="#clicSeleccionar" prefHeight="32.0" prefWidth="132.0" text="Seleccionar" />
+      <ImageView fx:id="ivImgPaciente" fitHeight="260.0" fitWidth="257.0" layoutX="455.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="147.0" layoutY="470.0" mnemonicParsing="false" onAction="#clicEnviar" prefHeight="32.0" prefWidth="88.0" text="Guardar" />
+      <Button layoutX="337.0" layoutY="470.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modificar" />
+      <Button layoutX="510.0" layoutY="470.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" text="Eliminar" />
+   </children>
+</AnchorPane>

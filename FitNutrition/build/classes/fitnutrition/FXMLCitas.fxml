@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLCitasController">
+   <children>
+      <Label layoutX="22.0" layoutY="23.0" text="Control Citas">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfBuscar" layoutX="22.0" layoutY="58.0" prefHeight="25.0" prefWidth="268.0" promptText="Buscar por nombre" />
+      <Button layoutX="300.0" layoutY="58.0" mnemonicParsing="false" text="Buscar" />
+      <Button layoutX="502.0" layoutY="58.0" mnemonicParsing="false" onAction="#clicAgregar" text="Agregar" />
+      <TableView fx:id="tbCita" layoutX="14.0" layoutY="100.0" prefHeight="287.0" prefWidth="572.0">
+        <columns>
+          <TableColumn fx:id="colIdPaciente" prefWidth="75.0" text="id Paciente" />
+          <TableColumn fx:id="colFechaCita" prefWidth="98.0" text="Fecha cita" />
+            <TableColumn fx:id="colHoraCita" prefWidth="98.0" text="Hora cita" />
+            <TableColumn fx:id="colObservaciones" prefWidth="300.0" text="Observaciones" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
