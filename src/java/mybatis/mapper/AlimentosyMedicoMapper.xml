@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AlimentosyMedicos">
+
+    <!-- Alimentos -->
+    <select id="getAllAlimentos" resultType="Pojos.Alimentos">
+        SELECT
+            idAlimento,
+            nombre_alimento,
+            calorias_porcion,
+            alimentos.idTipoPorcion,
+            tipoporcion.nombre as tipo
+        FROM alimentos
+        INNER JOIN tipoporcion ON alimentos.idTipoPorcion = tipoporcion.idTipoPorcion
+    </select>
+    
+    <select id="getTiposPorcion" resultType="Pojos.TipoPorcionAlimentos">
+        SELECT 
+            idTipoPorcion,
+            nombre
+        FROM tipoporcion
+    </select>
+    
+    <insert id="registrarAlimento" parameterType="Pojos.Alimentos">
+        INSERT INTO alimentos (nombre_alimento, calorias_porcion, idTipoPorcion)
+        VALUES (#{nombre_alimento},#{calorias_porcion},#{idTipoPorcion})
+    </insert>
+    
+    <update id="actualizarAlimento" parameterType="Pojos.Alimentos">
+        UPDATE alimentos SET nombre_alimento = #{nombre_alimento}, calorias_porcion = #{calorias_porcion}, idTipoPorcion = #{idTipoPorcion}
+        WHERE idAlimento = #{idAlimento}
+    </update>
+    
+    <!-- Medico -->
+    <select id="getAllMedicos" resultType="Pojos.Medico">
+        SELECT
+            idMedico,
+            nombre,
+            apellidos,
+            fNac,
+            genero,
+            domicilio,
+            numPersonal,
+            cedulaProfesional,
+            contraseña,
+            foto_medico,
+            estatus
+        FROM medico
+    </select>
+    
+    <select id="getAllMedicosActivos" resultType="Pojos.Medico">
+        SELECT
+            idMedico,
+            nombre,
+            apellidos,
+            fNac,
+            genero,
+            domicilio,
+            numPersonal,
+            cedulaProfesional,
+            contraseña,
+            foto_medico,
+            estatus
+        FROM medico
+        WHERE estatus = 'Activo'
+    </select>
+    
+    <insert id="registrarMedico" parameterType="Pojos.Medico">
+        INSERT INTO medico (nombre, apellidos, fNac, genero, domicilio, numPersonal, cedulaProfesional, contraseña, foto_medico, estatus)
+        VALUES (#{nombre},#{apellidos},#{fNac},#{genero},#{domicilio},#{numPersonal},#{cedulaProfesional},#{contraseña},#{foto_medico},#{estatus})
+    </insert>
+    
+    <update id="bajaMedico" parameterType="Pojos.Medico">
+        UPDATE medico SET estatus = #{estatus} 
+        WHERE idMedico = #{idMedico}
+    </update>
+    
+    <update id="actualizarMedico" parameterType="Pojos.Medico">
+        UPDATE medico SET domicilio = #{domicilio}, contraseña = #{contraseña}, foto_medico = #{foto_medico}  
+        WHERE idMedico = #{idMedico}
+    </update>
+</mapper>

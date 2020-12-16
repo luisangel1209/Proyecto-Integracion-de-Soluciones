@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Proyecto_Integracion_de_Soluciones" default="default" basedir=".">
-    <description>Builds, tests, and runs the project Proyecto Integracion de Soluciones.</description>
+<project name="EjemploProyectoIntegracion" default="default" basedir=".">
+    <description>Builds, tests, and runs the project EjemploProyectoIntegracion.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
