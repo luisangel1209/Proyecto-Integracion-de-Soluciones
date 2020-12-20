@@ -78,8 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE idMedico = #{idMedico}
     </update>
     
-    <update id="actualizarMedico" parameterType="Pojos.Medico">
-        UPDATE medico SET domicilio = #{domicilio}, contraseña = #{contraseña}, foto_medico = #{foto_medico}  
+    <update id="editarMedico" parameterType="Pojos.Medico">
+        UPDATE medico SET nombre = #{nombre}, apellidos = #{apellidos}, fNac = #{fNac}, genero = #{genero}, domicilio = #{domicilio}, numPersonal = #{numPersonal}, cedulaProfesional = #{cedulaProfesional}, contraseña = #{contraseña}, foto_medico = #{foto_medico}, estatus = #{estatus}  
         WHERE idMedico = #{idMedico}
     </update>
 </mapper>
