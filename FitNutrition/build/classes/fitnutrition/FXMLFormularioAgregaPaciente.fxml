@@ -40,7 +40,7 @@
       <Button layoutX="517.0" layoutY="68.0" mnemonicParsing="false" onAction="#clicSeleccionar" prefHeight="32.0" prefWidth="132.0" text="Seleccionar" />
       <ImageView fx:id="ivImgPaciente" fitHeight="260.0" fitWidth="257.0" layoutX="455.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" />
       <Button layoutX="147.0" layoutY="470.0" mnemonicParsing="false" onAction="#clicEnviar" prefHeight="32.0" prefWidth="88.0" text="Guardar" />
-      <Button layoutX="337.0" layoutY="470.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modificar" />
-      <Button layoutX="510.0" layoutY="470.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" text="Eliminar" />
+      <Button layoutX="337.0" layoutY="470.0" mnemonicParsing="false" onAction="#clicModifica" prefHeight="32.0" prefWidth="79.0" text="Modificar" />
+      <Button layoutX="510.0" layoutY="470.0" mnemonicParsing="false" onAction="#clicElimina" prefHeight="32.0" prefWidth="66.0" text="Eliminar" />
    </children>
 </AnchorPane>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="306.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLFormularioAgregarMedicoController">
+   <children>
+      <Label layoutX="14.0" layoutY="66.0" text="Nombre(s)" />
+      <Label layoutX="14.0" layoutY="100.0" text="Apellidos" />
+      <Label layoutX="14.0" layoutY="138.0" text="Fecha Nacimiento" />
+      <Label layoutX="14.0" layoutY="183.0" text="Genero" />
+      <Label fx:id="labelTitulo" layoutX="14.0" layoutY="14.0" text="Agregar Medico">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="224.0" text="Domicilio" />
+      <Label layoutX="285.0" layoutY="138.0" text="Estatus" />
+      <TextField fx:id="lbNombre" layoutX="117.0" layoutY="62.0" />
+      <TextField fx:id="lbApellido" layoutX="117.0" layoutY="96.0" />
+      <TextField fx:id="lbDomicilio" layoutX="117.0" layoutY="220.0" />
+      <ComboBox fx:id="comboEstatus" layoutX="356.0" layoutY="134.0" prefWidth="150.0" />
+      <Label layoutX="528.0" layoutY="66.0" text="Logo Aerolinea" />
+      <Button layoutX="637.0" layoutY="62.0" mnemonicParsing="false" onAction="#clickSeleccionar" text="Seleccionar" />
+      <ImageView fx:id="fotoMedico" fitHeight="194.0" fitWidth="200.0" layoutX="522.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="446.0" layoutY="257.0" mnemonicParsing="false" onAction="#Guardar" text="Guardar" />
+      <Label layoutX="285.0" layoutY="66.0" text="Cedula Prof" />
+      <TextField fx:id="lbCedula" layoutX="356.0" layoutY="62.0" />
+      <Label layoutX="14.0" layoutY="261.0" text="Numero Personal" />
+      <TextField fx:id="lbNumeroPersonal" layoutX="117.0" layoutY="257.0" />
+      <Label layoutX="285.0" layoutY="100.0" text="Contraseña" />
+      <DatePicker fx:id="Date" layoutX="117.0" layoutY="134.0" prefHeight="25.0" prefWidth="149.0" />
+      <ComboBox fx:id="comboGenero" layoutX="117.0" layoutY="179.0" prefWidth="150.0" />
+      <TextField fx:id="lbContra" layoutX="356.0" layoutY="96.0" />
+   </children>
+</AnchorPane>

@@ -10,6 +10,6 @@ package util;
  * @author maria
  */
 public class Constantes {
-    public static final String URL = "";
+    public static final String URL = "http://localhost:8084/EjemploProyectoIntegracion/ws/AlimentosyMedicos/";
     public static final int time_out = 9000;
 }
