@@ -15,7 +15,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="TextBuscar" layoutX="105.0" layoutY="64.0" prefHeight="25.0" prefWidth="176.0" promptText="Nombre/Estatus" />
+      <TextField fx:id="TextBuscar" layoutX="105.0" layoutY="64.0" prefHeight="25.0" prefWidth="176.0" promptText="Nombre/Cedula Profesional" />
       <Button layoutX="399.0" layoutY="64.0" mnemonicParsing="false" onAction="#clickAgregar" text="Agregar" />
       <TableView fx:id="tbMedicos" layoutX="37.0" layoutY="114.0" prefHeight="386.0" prefWidth="953.0">
          <columns>

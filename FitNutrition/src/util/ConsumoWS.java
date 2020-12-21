@@ -40,7 +40,7 @@ public class ConsumoWS {
     }
     
     public static RespuestaWS consumoWSPOST(String url, String parametros){
-        RespuestaWS respuesta = new RespuestaWS();
+        RespuestaWS resp = new RespuestaWS();
         try {
             URL urlws = new URL(url);
             HttpURLConnection conn = (HttpURLConnection)urlws.openConnection();
@@ -55,19 +55,19 @@ public class ConsumoWS {
             
             //leer
             System.out.println("Respuesta Codigo "+ conn.getResponseCode());
-            respuesta.setCodigo(conn.getResponseCode());
+            resp.setCodigo(conn.getResponseCode());
             InputStreamReader in = new InputStreamReader(conn.getInputStream());
             BufferedReader br = new BufferedReader(in);
             String salida;
             while((salida = br.readLine()) != null){
-                respuesta.setMensaje(salida);
+                resp.setMensaje(salida);
                 System.out.println(salida);
             }
             conn.disconnect();
         } catch (Exception ex) {
-            respuesta.setCodigo(505);
-            respuesta.setMensaje(ex.getMessage());
+            resp.setCodigo(505);
+            resp.setMensaje(ex.getMessage());
         }
-        return respuesta;
+        return resp;
     }
 }

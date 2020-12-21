@@ -94,7 +94,7 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
     } 
     
     private void cargaElementosTabla(){
-        String url = Constantes.URL + "/allbdMedicos";
+        String url = Constantes.URL + "allbdMedicos";
         RespuestaWS resp = ConsumoWS.consumoWSGET(url);
         if(resp.getCodigo() == 200){
             Gson gson = new Gson();
