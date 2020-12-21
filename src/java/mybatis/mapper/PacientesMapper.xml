@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Pacientes">
+    
+    <select id="getAllPacientes" resultType="Pojos.Pacientes">
+        SELECT
+        idPaciente,
+        idMedico,
+        nombre,
+        apellidos,
+        fNac,
+        genero,
+        peso,
+        estatura,
+        talla,
+        email,
+        tel,
+        domicilio,
+        usuario,
+        contraseña,
+        estatus
+        FROM pacientes
+    </select>
+
+    <insert id="registrarPaciente" parameterType="Pojos.Pacientes">
+        INSERT INTO pacientes (idMedico ,nombre, apellidos, fNac, genero, peso, estatura, talla, email, tel, domicilio, usuario, contraseña, paciente_foto, estatus)
+        VALUES (#{idMedico},#{nombre},#{apellidos},#{fNac},#{genero},#{peso},#{estatura},#{talla},#{email},#{tel},#{domicilio},#{usuario},#{contraseña},#{paciente_foto},#{estatus})
+    </insert>
+    
+    <update id="actualizarPaciente" parameterType="Pojos.Pacientes">
+        UPDATE pacientes SET peso = #{peso}, estatura = #{estatura}, tel = #{tel}
+        WHERE idPaciente = #{idPaciente}
+    </update>
+        
+    <update id="bajaPaciente" parameterType="Pojos.Pacientes">
+        UPDATE pacientes SET estatus = #{estatus} 
+        WHERE idPaciente = #{idPaciente}
+    </update>
+    
+</mapper>
