@@ -16,8 +16,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,7 +90,7 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
         this.colFoto.setCellValueFactory(new PropertyValueFactory("foto"));
         this.colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
         cargaElementosTabla();
-        //FuncionBuscar();
+        FuncionBuscar();
     } 
     
     private void cargaElementosTabla(){
@@ -144,5 +148,32 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
         System.out.println("Valor es: "+dato);
         tbMedicos.getItems().clear();
         cargaElementosTabla();
+    }
+    
+    private void FuncionBuscar(){
+        if(medicos.size() > 0){
+            FilteredList<pojo.Medico> filtroMedi = new FilteredList<>(medicos, p->true);
+            TextBuscar.textProperty().addListener(new ChangeListener<String>(){
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    filtroMedi.setPredicate(busqueda -> {
+                        if(newValue == null || newValue.isEmpty()){
+                            return true;
+                        }
+                        //Convertir minusculas
+                        String CaseFilter = newValue.toLowerCase();
+                        if(busqueda.getNombre().toLowerCase().contains(CaseFilter)){
+                            return true;
+                        }else if(busqueda.getCedulaProfesional().toLowerCase().contains(CaseFilter)){
+                            return true;
+                        }
+                        return false;
+                    });
+                }      
+            });
+            SortedList<pojo.Medico> sortedDatos = new SortedList<>(filtroMedi);
+            sortedDatos.comparatorProperty().bind(tbMedicos.comparatorProperty());
+            tbMedicos.setItems(sortedDatos);
+        }
     }
 }

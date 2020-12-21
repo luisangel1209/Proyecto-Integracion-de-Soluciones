@@ -36,7 +36,7 @@ public class FXMLFormularioAgregarMedicoController implements Initializable {
     @FXML
     private TextField lbDomicilio;
     @FXML
-    private ComboBox<?> comboEstatus;
+    private ComboBox<String> comboEstatus;
     @FXML
     private ImageView fotoMedico;
     @FXML
@@ -55,6 +55,7 @@ public class FXMLFormularioAgregarMedicoController implements Initializable {
     private Medico medico;
     
     ObservableList<String> genero = FXCollections.observableArrayList("Masculino", "Femenino");
+    ObservableList<String> estatus = FXCollections.observableArrayList("Activo", "No Activo");
     
     /**
      * Initializes the controller class.
@@ -62,7 +63,9 @@ public class FXMLFormularioAgregarMedicoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         comboGenero.setItems(genero);
-        comboGenero.setPromptText("Selecciona el genero");
+        comboGenero.setPromptText("Elige el genero");
+        comboEstatus.setItems(estatus);
+        comboEstatus.setPromptText("Elige el estatus");
     }   
     
     public void InicializaCampos(NotificaCambios notificacion, boolean isNuevo, Medico medico){
@@ -96,6 +99,7 @@ public class FXMLFormularioAgregarMedicoController implements Initializable {
     @FXML
     private void Guardar(ActionEvent event) {
         System.out.println(comboGenero.getValue());
+        System.out.println(Date.getValue());
     }
     
 }
