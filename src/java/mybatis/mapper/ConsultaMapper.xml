@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Consulta">
+    <insert id="registraConsulta" parameterType="pojos.Consulta">
+        INSERT INTO consultas (idConsultas, idPaciente, observaciones, peso, talla, IMC, idDieta)
+        VALUES (#{idConsultas},#{idPaciente},#{observaciones},#{peso},#{talla},#{IMC}, #{idDieta})
+    </insert>
+    
+    <update id="editarConsulta" parameterType="pojos.Consulta">
+        UPDATE consultas SET peso = #{peso}, talla = #{talla}, IMC = #{IMC}, observaciones = #{observaciones}
+        WHERE idConsultas = #{idConsultas}
+    </update>
+    
+    <delete id="eliminarConsulta" parameterType="pojos.Consulta">
+        DELETE FROM consultas WHERE idConsultas = #{idConsultas}
+    </delete>
+</mapper>
