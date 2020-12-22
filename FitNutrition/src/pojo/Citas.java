@@ -5,39 +5,57 @@
  */
 package pojo;
 
-import java.util.Date;
-
 /**
  *
  * @author maria
  */
 public class Citas {
-    private Date fechaCita;
-    private Date horaCita;
+    private Integer idCita;
+    private Integer idPaciente;
+    private String fechaCita;
+    private String horaCita;
     private String Observaciones;
 
     public Citas() {
     }
 
-    public Citas(Date fechaCita, Date horaCita, String Observaciones) {
+    public Citas(Integer idCita, Integer idPaciente, String fechaCita, String horaCita, String Observaciones) {
+        this.idCita = idCita;
+        this.idPaciente = idPaciente;
         this.fechaCita = fechaCita;
         this.horaCita = horaCita;
         this.Observaciones = Observaciones;
     }
 
-    public Date getFechaCita() {
+    public Integer getIdCita() {
+        return idCita;
+    }
+
+    public void setIdCita(Integer idCita) {
+        this.idCita = idCita;
+    }
+
+    public Integer getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(Integer idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public String getFechaCita() {
         return fechaCita;
     }
 
-    public void setFechaCita(Date fechaCita) {
+    public void setFechaCita(String fechaCita) {
         this.fechaCita = fechaCita;
     }
 
-    public Date getHoraCita() {
+    public String getHoraCita() {
         return horaCita;
     }
 
-    public void setHoraCita(Date horaCita) {
+    public void setHoraCita(String horaCita) {
         this.horaCita = horaCita;
     }
 
@@ -48,6 +66,6 @@ public class Citas {
     public void setObservaciones(String Observaciones) {
         this.Observaciones = Observaciones;
     }
-    
+
     
 }
