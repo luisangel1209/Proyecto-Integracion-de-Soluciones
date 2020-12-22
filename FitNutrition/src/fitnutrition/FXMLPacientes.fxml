@@ -8,31 +8,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="433.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLPacientesController">
+<AnchorPane id="AnchorPane" prefHeight="461.0" prefWidth="1029.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLPacientesController">
    <children>
-      <Label layoutX="28.0" layoutY="25.0" text="Control Pacientes">
+      <Label layoutX="28.0" layoutY="14.0" prefHeight="39.0" prefWidth="200.0" text="Control Pacientes">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="571.0" layoutY="54.0" mnemonicParsing="false" onAction="#clicAgregar" text="Agregar">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Button>
-      <TableView fx:id="tbPacientes" layoutX="14.0" layoutY="94.0" prefHeight="307.0" prefWidth="671.0">
+      <TableView fx:id="tbPacientes" layoutX="11.0" layoutY="104.0" prefHeight="320.0" prefWidth="1006.0">
         <columns>
-          <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
-          <TableColumn fx:id="colApellidos" prefWidth="140.0" text="Apellidos" />
-            <TableColumn fx:id="colFNac" prefWidth="75.0" text="Fecha Nacimiento" />
-            <TableColumn fx:id="colGenero" prefWidth="75.0" text="Genero" />
-            <TableColumn fx:id="colPeso" prefWidth="75.0" text="Peso" />
-            <TableColumn fx:id="colEstatura" prefWidth="75.0" text="Estatura" />
-            <TableColumn fx:id="colTalla" prefWidth="75.0" text="Talla" />
-            <TableColumn fx:id="colMedico" prefWidth="75.0" text="Medico" />
+          <TableColumn fx:id="colnombre" prefWidth="68.0" text="Nombre" />
+            <TableColumn fx:id="colapellidos" prefWidth="68.0" text="Apellidos" />
+            <TableColumn fx:id="colfNac" prefWidth="89.0" text="Fecha Nacimiendo" />
+            <TableColumn fx:id="colgenero" prefWidth="74.0" text="Genero" />
+            <TableColumn fx:id="colpeso" prefWidth="64.0" text="Peso" />
+            <TableColumn fx:id="colestatura" prefWidth="63.0" text="Estatura" />
+            <TableColumn fx:id="coltalla" prefWidth="59.0" text="Talla" />
+            <TableColumn fx:id="colemail" prefWidth="68.0" text="Email" />
+            <TableColumn fx:id="coltel" prefWidth="77.0" text="Telefono" />
+            <TableColumn fx:id="coldomicilio" text="Domicilio" />
+            <TableColumn fx:id="colusuario" prefWidth="73.0" text="Usuario" />
+            <TableColumn fx:id="colcontraseña" prefWidth="72.0" text="Contraseña" />
+            <TableColumn fx:id="colpaciente_foto" prefWidth="76.0" text="Foto" />
+            <TableColumn fx:id="colestatus" prefWidth="74.0" text="Estatus" />
         </columns>
       </TableView>
-      <TextField fx:id="tfBuscar" layoutX="23.0" layoutY="56.0" prefHeight="25.0" prefWidth="282.0" promptText="Buscar por nombre" />
-      <Button layoutX="316.0" layoutY="56.0" mnemonicParsing="false" text="Buscar" />
+      <Button layoutX="524.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickAgregar" prefHeight="25.0" prefWidth="77.0" text="Registrar" />
+      <Button layoutX="620.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickEditar" prefHeight="25.0" prefWidth="77.0" text="Editar" />
+      <Button layoutX="717.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="25.0" prefWidth="77.0" text="Baja" />
+      <Label layoutX="28.0" layoutY="67.0" text="Buscar por:" />
+      <TextField fx:id="TextBuscar" layoutX="98.0" layoutY="63.0" prefHeight="25.0" prefWidth="176.0" promptText="Nombre" />
    </children>
 </AnchorPane>
