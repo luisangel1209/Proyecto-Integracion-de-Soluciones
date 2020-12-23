@@ -7,7 +7,7 @@ package Pojos;
 
 /**
  *
- * @author FAMSA
+ * @author Luis Angel
  */
 public class Mensaje {
     private boolean error;

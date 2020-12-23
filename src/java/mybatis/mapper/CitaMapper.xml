@@ -4,23 +4,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Cita">
-    <select id="getAllCita" resultType="pojos.Cita">
+    <select id="getAllCitas" resultType="Pojos.Cita">
         SELECT
             idCitas,
-            cita.idPaciente,
+            idPaciente,
             fecha_cita,
             hora_cita,
             observaciones
-        FROM Cita
-        INNER JOIN idCitas ON cita.idPaciente = idCitas.idTipoAerolinea
+        FROM citas
     </select>
     
-    <insert id="registraCita" parameterType="pojos.Cita">
+    <insert id="registraCita" parameterType="Pojos.Cita">
         INSERT INTO citas (idCitas, idPaciente, fecha_cita, hora_cita, observaciones)
         VALUES (#{idCitas},#{idPaciente},#{fecha_cita},#{hora_cita},#{observaciones})
     </insert>
     
-    <update id="editarCita" parameterType="pojos.Cita">
+    <update id="editarCita" parameterType="Pojos.Cita">
         UPDATE citas SET fecha_cita = #{fecha_cita}, hora_cita = #{hora_cita}, observaciones = #{observaciones}
         WHERE idCitas = #{idCitas}
     </update>

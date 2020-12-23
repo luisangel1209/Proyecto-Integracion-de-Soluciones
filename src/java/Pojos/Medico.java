@@ -9,13 +9,13 @@ import java.util.Date;
 
 /**
  *
- * @author FAMSA
+ * @author Luis Angel
  */
 public class Medico {
     private int idMedico;
     private String nombre;
     private String apellidos;
-    private String fNac;
+    private Date fNac;
     private String genero;
     private String domicilio;
     private int numPersonal;
@@ -32,7 +32,7 @@ public class Medico {
         this.estatus = estatus;
     }
 
-    public Medico(int idMedico, String nombre, String apellidos, String fNac, String genero, String domicilio, int numPersonal, String cedulaProfesional, String contraseña, String foto, String estatus) {
+    public Medico(int idMedico, String nombre, String apellidos, Date fNac, String genero, String domicilio, int numPersonal, String cedulaProfesional, String contraseña, String foto, String estatus) {
         this.idMedico = idMedico;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -70,11 +70,11 @@ public class Medico {
         this.apellidos = apellidos;
     }
 
-    public String getfNac() {
+    public Date getfNac() {
         return fNac;
     }
 
-    public void setfNac(String fNac) {
+    public void setfNac(Date fNac) {
         this.fNac = fNac;
     }
 

@@ -5,17 +5,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="Consulta">
-    <insert id="registraConsulta" parameterType="pojos.Consulta">
+    <insert id="registraConsulta" parameterType="Pojos.Consulta">
         INSERT INTO consultas (idConsultas, idPaciente, observaciones, peso, talla, IMC, idDieta)
         VALUES (#{idConsultas},#{idPaciente},#{observaciones},#{peso},#{talla},#{IMC}, #{idDieta})
     </insert>
     
-    <update id="editarConsulta" parameterType="pojos.Consulta">
+    <update id="editarConsulta" parameterType="Pojos.Consulta">
         UPDATE consultas SET peso = #{peso}, talla = #{talla}, IMC = #{IMC}, observaciones = #{observaciones}
         WHERE idConsultas = #{idConsultas}
     </update>
     
-    <delete id="eliminarConsulta" parameterType="pojos.Consulta">
+    <delete id="eliminarConsulta" parameterType="Pojos.Consulta">
         DELETE FROM consultas WHERE idConsultas = #{idConsultas}
     </delete>
 </mapper>

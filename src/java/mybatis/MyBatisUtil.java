@@ -14,7 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
  *
- * @author FAMSA
+ * @author Luis Angel
  */
 public class MyBatisUtil {
     public static String RESOURCE = "mybatis/mybatis-config.xml";    

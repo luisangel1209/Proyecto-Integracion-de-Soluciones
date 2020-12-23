@@ -23,7 +23,7 @@ import org.apache.ibatis.session.SqlSession;
 
 /**
  *
- * @author FAMSA
+ * @author Luis Angel 
  */
 @Path("AlimentosyMedicos")
 public class AlimentoyMedico {
@@ -179,9 +179,9 @@ public class AlimentoyMedico {
     @Path("registroMedico")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje crearMedico(@FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") String fNac,
+    public Mensaje crearMedico(@FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") Date fNac,
             @FormParam("genero") String genero, @FormParam("domicilio") String domicilio, @FormParam("numPersonal") int numPersonal,
-            @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contrasena") String contraseña, @FormParam("foto_medico") String foto_medico,
+            @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contraseña") String contraseña, @FormParam("foto_medico") String foto_medico,
             @FormParam("estatus") String estatus){
         Mensaje respuesta = new Mensaje();
         
@@ -242,9 +242,9 @@ public class AlimentoyMedico {
     @Path("editarMedico")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje editarMedico(@FormParam("idMedico") int idMedico, @FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") String fNac,
+    public Mensaje editarMedico(@FormParam("idMedico") int idMedico, @FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") Date fNac,
             @FormParam("genero") String genero, @FormParam("domicilio") String domicilio, @FormParam("numPersonal") int numPersonal,
-            @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contrasena") String contraseña, @FormParam("foto_medico") String foto_medico,
+            @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contraseña") String contraseña, @FormParam("foto_medico") String foto_medico,
             @FormParam("estatus") String estatus){
         Mensaje respuesta = new Mensaje();
         Medico medico = new Medico(idMedico, nombre, apellidos, fNac, genero, domicilio, numPersonal, cedulaProfesional, contraseña, foto_medico, estatus);
