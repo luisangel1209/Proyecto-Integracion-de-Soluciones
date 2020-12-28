@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  *
  * @author maria
  */
-public class FXMLInicioController implements Initializable {
+public class FXMLPrincipalController implements Initializable {
     
     @FXML
     private Button button;

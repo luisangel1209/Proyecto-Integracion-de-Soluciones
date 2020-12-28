@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateStringConverter;
 import pojo.Medico;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
@@ -111,18 +114,27 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
 
     @FXML
     private void Guardar(ActionEvent event) {
-        /*if(isNuevo){
+        /*System.out.println(lbNombre.getText());
+        System.out.println(lbApellido.getText());
+        System.out.println(Date.getValue());
+        System.out.println(comboGenero.getValue());
+        System.out.println(lbDomicilio.getText());
+        System.out.println(lbNumeroPersonal.getText());
+        System.out.println(lbCedula.getText());
+        System.out.println(lbContra.getText());
+        System.out.println(comboEstatus.getValue());*/
+        if(isNuevo){
             //String urll = Constantes.URL + "aerolineas/SubirImagen/"+aerolinea.getIdAerolinea();
             String url = Constantes.URL + "registroMedico";
             int numPerso = Integer.parseInt(lbNumeroPersonal.getText());
             String foto = "Prueba";
-            String fecha = ""+Date.getValue();
+            String date = ""+Date.getValue();
             String generoo = comboGenero.getValue();
             String estatuss = comboEstatus.getValue();
-            String parametros = String.format("nombre=%s&apellidos=%s&fNac=%s&genero=%s&domicilio=%s&numPersonal=%d&cedulaProfesional=%s&contrasena=%s&foto_medico=%s&estatus=%s", 
+            String parametros = String.format("nombre=%s&apellidos=%s&fNac=%s&genero=%s&domicilio=%s&numPersonal=%d&cedulaProfesional=%s&contraseña=%s&foto_medico=%s&estatus=%s", 
                     lbNombre.getText(),
                     lbApellido.getText(),
-                    fecha,
+                    date,
                     generoo,
                     lbDomicilio.getText(),
                     numPerso,
@@ -147,7 +159,7 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
             }else{
                 DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
             }
-        }else{
+        }/*else{
             String url = Constantes.URL + "aerolineas/editar";
             String parametros = String.format("idAerolinea=%d&nombre=%s&nacionalidad=%s&cantidadAviones=%s&responsable=%s&idTipoAerolinea=%d", 
                 aerolinea.getIdAerolinea(),
