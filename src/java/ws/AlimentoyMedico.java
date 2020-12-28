@@ -179,7 +179,7 @@ public class AlimentoyMedico {
     @Path("registroMedico")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje crearMedico(@FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") Date fNac,
+    public Mensaje crearMedico(@FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") String fNac,
             @FormParam("genero") String genero, @FormParam("domicilio") String domicilio, @FormParam("numPersonal") int numPersonal,
             @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contraseña") String contraseña, @FormParam("foto_medico") String foto_medico,
             @FormParam("estatus") String estatus){
@@ -242,7 +242,7 @@ public class AlimentoyMedico {
     @Path("editarMedico")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje editarMedico(@FormParam("idMedico") int idMedico, @FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") Date fNac,
+    public Mensaje editarMedico(@FormParam("idMedico") int idMedico, @FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") String fNac,
             @FormParam("genero") String genero, @FormParam("domicilio") String domicilio, @FormParam("numPersonal") int numPersonal,
             @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contraseña") String contraseña, @FormParam("foto_medico") String foto_medico,
             @FormParam("estatus") String estatus){
