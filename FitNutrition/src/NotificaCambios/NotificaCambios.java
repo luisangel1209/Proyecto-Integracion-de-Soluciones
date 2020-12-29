@@ -7,7 +7,7 @@ package NotificaCambios;
 
 /**
  *
- * @author FAMSA
+ * @author Luis
  */
 public interface NotificaCambios {
     

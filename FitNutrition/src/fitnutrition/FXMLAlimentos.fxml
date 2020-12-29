@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLAlimentosController">
+<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLAlimentosController">
    <children>
       <Label layoutX="47.0" layoutY="24.0" text="Control de Alimentos">
          <font>
@@ -25,7 +25,6 @@
          </columns>
       </TableView>
       <Button layoutX="451.0" layoutY="74.0" mnemonicParsing="false" onAction="#clickEditar" text="Editar" />
-      <Button layoutX="519.0" layoutY="74.0" mnemonicParsing="false" onAction="#clickEliminar" style="-fx-background-color: A93226;" text="Eliminar" textFill="WHITE" />
       <Label layoutX="47.0" layoutY="78.0" text="Buscar Por:" />
    </children>
 </AnchorPane>

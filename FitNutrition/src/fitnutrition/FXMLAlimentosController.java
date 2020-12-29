@@ -8,11 +8,14 @@ package fitnutrition;
 import NotificaCambios.NotificaCambios;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,12 +24,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import pojo.Alimentos;
 import pojo.RespuestaWS;
 import util.Constantes;
@@ -65,7 +73,7 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
     }
 
     private void cargaElementosTabla(){
-        String url = Constantes.URL + "allbdAlimentos";
+        String url = Constantes.URL + "AlimentosyMedicos/allbdAlimentos";
         RespuestaWS resp = ConsumoWS.consumoWSGET(url);
         if(resp.getCodigo() == 200){
             Gson gson = new Gson();
@@ -95,15 +103,49 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
 
     @FXML
     private void clickAgregar(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioAgregarAlimento.fxml"));
+            Parent root = loader.load();
+            
+            FXMLFormularioAgregarAlimentoController controlador = loader.getController();
+            controlador.InicializaCampos(this, true, null);
+            
+            Scene scForm = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scForm);
+            stage.showAndWait();
+        } catch (IOException ex) {
+            System.out.println("Error cargar ventana");
+            Logger.getLogger(FXMLPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void clickEditar(ActionEvent event) {
+        int celda = tbAlimentos.getSelectionModel().getSelectedIndex();
+        if(celda >= 0){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioAgregarAlimento.fxml"));
+                Parent root = loader.load();
+            
+                FXMLFormularioAgregarAlimentoController controlador = loader.getController();
+                controlador.InicializaCampos(this, false, alimentos.get(celda));
+            
+                Scene scForm = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scForm);
+                stage.showAndWait();
+            } catch (IOException ex) {
+                System.out.println("Error al cargar ventana");
+                Logger.getLogger(FXMLPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            DialogError("Selecciona registro", "Para editar un registro seleccionalo de la tabla");
+        }
     }
 
-    @FXML
-    private void clickEliminar(ActionEvent event) {
-    }
     
     private void FuncionBuscar(){
         if(alimentos.size() > 0){
@@ -130,6 +172,5 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
             sortedDatos.comparatorProperty().bind(tbAlimentos.comparatorProperty());
             tbAlimentos.setItems(sortedDatos);
         }
-    }
-    
+    }    
 }

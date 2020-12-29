@@ -7,13 +7,8 @@ package fitnutrition;
 
 import NotificaCambios.NotificaCambios;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateStringConverter;
 import pojo.Medico;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
@@ -37,7 +31,7 @@ import util.ConsumoWS;
 /**
  * FXML Controller class
  *
- * @author FAMSA
+ * @author Luis
  */
 public class FXMLFormularioAgregarMedicoController implements Initializable, NotificaCambios {
 
@@ -80,6 +74,7 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
         comboGenero.setPromptText("Elige el genero");
         comboEstatus.setItems(estatus);
         comboEstatus.setPromptText("Elige el estatus");
+        
     }   
     
     public void InicializaCampos(NotificaCambios notificacion, boolean isNuevo, Medico medico){
@@ -87,24 +82,24 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
         this.medico = medico;
         this.notificacion = notificacion;
         if(!isNuevo){
-            labelTitulo.setText("Editar Aerolinea");
+            labelTitulo.setText("Editar Médico");
             cargaDatosEdicion();
         }
     }
     
     private void cargaDatosEdicion(){
         if(medico != null){
-            
+            String fecha = medico.getfNac();
+            LocalDate fecha2 = LocalDate.parse(fecha);
             lbNombre.setText(medico.getNombre());
             lbApellido.setText(medico.getApellidos());
-            //comboGenero.setItems(estatus);
+            Date.setValue(fecha2);
+            comboGenero.setValue(medico.getGenero());
             lbDomicilio.setText(medico.getDomicilio());
             lbNumeroPersonal.setText(""+medico.getNumPersonal());
             lbCedula.setText(medico.getCedulaProfesional());
             lbContra.setText(medico.getContraseña());
-            //int posCombo = getIndexLista(aerolinea.getTipo());
-            //combotipo.getSelectionModel().select(posCombo);
-            //descargaImagen(medico.getIdMedico());
+            comboEstatus.setValue(medico.getEstatus());
         }
     }
 
@@ -114,18 +109,8 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
 
     @FXML
     private void Guardar(ActionEvent event) {
-        /*System.out.println(lbNombre.getText());
-        System.out.println(lbApellido.getText());
-        System.out.println(Date.getValue());
-        System.out.println(comboGenero.getValue());
-        System.out.println(lbDomicilio.getText());
-        System.out.println(lbNumeroPersonal.getText());
-        System.out.println(lbCedula.getText());
-        System.out.println(lbContra.getText());
-        System.out.println(comboEstatus.getValue());*/
         if(isNuevo){
-            //String urll = Constantes.URL + "aerolineas/SubirImagen/"+aerolinea.getIdAerolinea();
-            String url = Constantes.URL + "registroMedico";
+            String url = Constantes.URL + "AlimentosyMedicos/registroMedico";
             int numPerso = Integer.parseInt(lbNumeroPersonal.getText());
             String foto = "Prueba";
             String date = ""+Date.getValue();
@@ -143,10 +128,8 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
                     foto,
                     estatuss
                     );
-            //System.out.println(logoaero.getImage());
             
             RespuestaWS resp = ConsumoWS.consumoWSPOST(url, parametros);
-            //RespuestaWS respp = ConsumoWS.ConsumoWSPOST(urll, imagen);&& respp.getCodigo() == 200
             if(resp.getCodigo() == 200){
                 Gson gson = new Gson();
                 Mensaje msj = gson.fromJson(resp.getMensaje(), Mensaje.class);
@@ -159,16 +142,27 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
             }else{
                 DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
             }
-        }/*else{
-            String url = Constantes.URL + "aerolineas/editar";
-            String parametros = String.format("idAerolinea=%d&nombre=%s&nacionalidad=%s&cantidadAviones=%s&responsable=%s&idTipoAerolinea=%d", 
-                aerolinea.getIdAerolinea(),
-                labelnombre.getText(),
-                labelnaciona.getText(),
-                labelcantidad.getText(),
-                labelrespon.getText(),
-                tipo);
-            RespuestaWS res = ConsumoWS.ConsumoWSPUT(url, parametros);
+        }else{
+            String url = Constantes.URL + "AlimentosyMedicos/editarMedico";
+            int numPerso = Integer.parseInt(lbNumeroPersonal.getText());
+            String foto = "Prueba";
+            String date = ""+Date.getValue();
+            String generoo = comboGenero.getValue();
+            String estatuss = comboEstatus.getValue();
+            String parametros = String.format("idMedico=%d&nombre=%s&apellidos=%s&fNac=%s&genero=%s&domicilio=%s&numPersonal=%d&cedulaProfesional=%s&contraseña=%s&foto_medico=%s&estatus=%s", 
+                    medico.getIdMedico(),
+                    lbNombre.getText(),
+                    lbApellido.getText(),
+                    date,
+                    generoo,
+                    lbDomicilio.getText(),
+                    numPerso,
+                    lbCedula.getText(),
+                    lbContra.getText(),
+                    foto,
+                    estatuss
+                    );
+            RespuestaWS res = ConsumoWS.consumoWSPUT(url, parametros);
             if(res.getCodigo() == 200){
                 Gson gson = new Gson();
                 Mensaje msj = gson.fromJson(res.getMensaje(), Mensaje.class);
@@ -180,9 +174,8 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
                 }
             }else{
                 DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
-
             }
-        }*/
+        }
     }
     
     private void muestraDialogo(String titulo, String mensaje){
@@ -194,9 +187,8 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
     }
     
     private void CerrarScena(){
-        Stage stage = (Stage) this.lbNombre.getScene().getWindow();
+        Stage stage = (Stage) this.labelTitulo.getScene().getWindow();
         stage.close();
-        
         notificacion.RefrescarTlaba(true);
     }
     
@@ -212,5 +204,4 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
     public void RefrescarTlaba(boolean dato) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
