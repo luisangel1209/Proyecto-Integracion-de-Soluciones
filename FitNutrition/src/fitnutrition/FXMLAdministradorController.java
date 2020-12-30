@@ -174,7 +174,7 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
     @Override
     public void RefrescarTlaba(boolean dato) {
         System.out.println("Valor es: "+dato);
-        //tbMedicos.getItems().clear();
+        tbMedicos.getItems().clear();
         cargaElementosTabla();
     }
     

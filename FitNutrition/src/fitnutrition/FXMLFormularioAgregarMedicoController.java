@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -64,6 +65,8 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
     
     ObservableList<String> genero = FXCollections.observableArrayList("Masculino", "Femenino");
     ObservableList<String> estatus = FXCollections.observableArrayList("Activo", "No Activo");
+    @FXML
+    private Button BotonGuardar;
     
     /**
      * Initializes the controller class.
@@ -187,7 +190,7 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
     }
     
     private void CerrarScena(){
-        Stage stage = (Stage) this.labelTitulo.getScene().getWindow();
+        Stage stage = (Stage) this.BotonGuardar.getScene().getWindow();
         stage.close();
         notificacion.RefrescarTlaba(true);
     }

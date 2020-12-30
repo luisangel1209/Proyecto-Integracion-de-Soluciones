@@ -60,6 +60,8 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
 
     private ObservableList<Alimentos> alimentos;
     
+    private NotificaCambios notificacion;
+    
     /**
      * Initializes the controller class.
      */
@@ -86,21 +88,6 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
         }
     }
     
-    private void DialogError(String titulo, String mensaje){
-        Alert error = new Alert(Alert.AlertType.ERROR);
-        error.setTitle(titulo);
-        error.setHeaderText(null);
-        error.setContentText(mensaje);
-        error.showAndWait();
-    }
-
-    @Override
-    public void RefrescarTlaba(boolean dato) {
-        System.out.println("Valor es: "+dato);
-        tbAlimentos.getItems().clear();
-        cargaElementosTabla();
-    }
-
     @FXML
     private void clickAgregar(ActionEvent event) {
         try {
@@ -119,6 +106,22 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
             System.out.println("Error cargar ventana");
             Logger.getLogger(FXMLPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void DialogError(String titulo, String mensaje){
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle(titulo);
+        error.setHeaderText(null);
+        error.setContentText(mensaje);
+        error.showAndWait();
+    }
+
+    @Override
+    public void RefrescarTlaba(boolean dato) {
+        System.out.println("Valor es: "+dato);
+        tbAlimentos.getItems().clear();
+        //tbAlimentos.getItems().clear();
+        cargaElementosTabla();
     }
 
     @FXML

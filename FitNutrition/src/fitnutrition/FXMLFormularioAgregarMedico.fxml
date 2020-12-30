@@ -29,7 +29,7 @@
       <Label layoutX="528.0" layoutY="66.0" text="Logo Aerolinea" />
       <Button layoutX="637.0" layoutY="62.0" mnemonicParsing="false" onAction="#clickSeleccionar" text="Seleccionar" />
       <ImageView fx:id="fotoMedico" fitHeight="194.0" fitWidth="200.0" layoutX="522.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="446.0" layoutY="257.0" mnemonicParsing="false" onAction="#Guardar" text="Guardar" />
+      <Button fx:id="BotonGuardar" layoutX="446.0" layoutY="257.0" mnemonicParsing="false" onAction="#Guardar" text="Guardar" />
       <Label layoutX="285.0" layoutY="66.0" text="Cedula Prof" />
       <TextField fx:id="lbCedula" layoutX="356.0" layoutY="62.0" />
       <Label layoutX="14.0" layoutY="261.0" text="Numero Personal" />
