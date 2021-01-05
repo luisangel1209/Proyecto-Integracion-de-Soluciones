@@ -1,5 +1,6 @@
 package ws;
 
+import Pojos.Dieta;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -172,6 +173,109 @@ public class FitNutritionWS {
         }else{
            respuesta.setError(true);
            respuesta.setMensaje("No hay conexión con la BD...");
+        }
+        return respuesta;
+    }
+    
+    @Path("getAllDietas")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Dieta> getDietas(){
+        List<Dieta> dieta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if (conn != null) {
+            try {
+                dieta = conn.selectList("Dieta.getAllDietas");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return dieta;
+    }
+    
+    @Path("registrarDieta")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje crearDieta(@FormParam("idAlimento") Integer idAlimento, @FormParam("numero_dieta") Integer numero_dieta, @FormParam("cantidad") String cantidad,
+            @FormParam("hora_dia") String hora_dia, @FormParam("calorias_dieta") float calorias_dieta, @FormParam("observaciones") String observaciones){
+        Mensaje respuesta = new Mensaje();       
+        Dieta dieta =  new Dieta(0, idAlimento, numero_dieta, cantidad, hora_dia, calorias_dieta, observaciones);
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                int resultado = conn.insert("Dieta.registrarDieta", dieta);
+                conn.commit();
+                if(resultado > 0){
+                    respuesta.setError(false);
+                    respuesta.setMensaje("Dieta creada con éxito...");
+                }else{
+                    respuesta.setError(true);
+                    respuesta.setMensaje("No se pudo crear la dieta...");
+                }
+            } catch (Exception e) {
+                respuesta.setError(true);
+                respuesta.setMensaje(e.getMessage());
+            }
+        }else{
+            respuesta.setError(true);
+            respuesta.setMensaje("No se puede conectar con la base de datos...");
+        }
+        return respuesta;
+    }
+    
+    @Path("actualizarDieta")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje editarDieta(@FormParam("idDieta") Integer idDieta, @FormParam("cantidad") String cantidad, @FormParam("hora_dia") String hora_dia, @FormParam("calorias_dieta") float calorias_dieta, @FormParam("observaciones") String observaciones){
+        Mensaje respuesta = new Mensaje();
+        Dieta dieta = new Dieta(idDieta, cantidad, hora_dia, calorias_dieta, observaciones);
+        SqlSession conn =  MyBatisUtil.getSession();
+        if(conn != null){
+           try{
+               int resultado = conn.update("Dieta.actualizarDieta", dieta);
+               conn.commit();
+               if(resultado > 0){
+                   respuesta.setError(false);
+                   respuesta.setMensaje("Dieta actualizada con éxito...");
+               }else{
+                   respuesta.setError(true);
+                   respuesta.setMensaje("La dieta No pudo ser actualizada...");
+               }
+           }catch(Exception e){
+               respuesta.setError(true);
+               respuesta.setMensaje(e.getMessage());
+           }
+        }else{
+           respuesta.setError(true);
+           respuesta.setMensaje("No hay conexión con la BD...");
+        }
+        return respuesta;
+    }
+    
+    @Path("eliminarDieta")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarDieta(@FormParam("idDieta") Integer idDieta){
+        Mensaje respuesta = new Mensaje();
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                int resultado = conn.delete("Dieta.eliminarDieta", idDieta);
+                conn.commit();
+                if( resultado > 0 ){
+                    respuesta.setError(false);
+                    respuesta.setMensaje("Dieta eliminada correctamente...");
+                }else{
+                    respuesta.setError(true);
+                    respuesta.setMensaje("No se pudo eliminar la dieta...");
+                }
+            } catch (Exception e) {
+                respuesta.setError(true);
+                respuesta.setMensaje(e.getMessage());
+            }
+        }else{
+            respuesta.setError(true);
+            respuesta.setMensaje("No hay conexión con la BD...");
         }
         return respuesta;
     }
