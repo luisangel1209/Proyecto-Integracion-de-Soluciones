@@ -45,10 +45,14 @@ public class CitayConsulta {
         
         if(conn != null){
             try {
-                resultado = conn.selectList("Cita.getAllCitas");
+                resultado = conn.selectList("fitNutrition.getAllCitas");
             } catch (Exception e) {
                 e.printStackTrace();
-            } 
+            } finally{
+                conn.close();
+            }
+        }else{
+            System.out.println("Error de conexion");
         }
         return resultado;
     }
@@ -212,6 +216,7 @@ public class CitayConsulta {
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje eliminarConsulta(@FormParam("idConsulta") Integer idConsultas){
         Mensaje respuesta = new  Mensaje();
+        Consulta cons = new Consulta(idConsultas,1,"ninguna",55,36,21,1); 
         SqlSession conn = MyBatisUtil.getSession();
         if(conn != null){
             try{
