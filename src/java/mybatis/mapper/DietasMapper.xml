@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Dieta">
 
-    <select id="getAllDietas" resultType="pojos.Dieta">
+    <select id="getAllDietas" resultType="Pojos.Dieta">
         SELECT
         idDieta,
         idAlimento,
@@ -17,12 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM dietas
     </select>
     
-    <insert id="registrarDieta" parameterType="pojos.Dieta">
+    <insert id="registrarDieta" parameterType="Pojos.Dieta">
         INSERT INTO dietas (idAlimento, numero_dieta, cantidad, hora_dia, calorias_dieta, observaciones)
         VALUES (#{idAlimento},#{numero_dieta},#{cantidad},#{hora_dia},#{calorias_dieta},#{observaciones})
     </insert>
     
-    <update id="actualizarDieta" parameterType="pojos.Dieta">
+    <update id="actualizarDieta" parameterType="Pojos.Dieta">
         UPDATE dietas SET cantidad = #{cantidad}, hora_dia = #{hora_dia}, calorias_dieta = #{calorias_dieta}, observaciones = #{observaciones}
         WHERE idDieta = #{idDieta}
     </update>
