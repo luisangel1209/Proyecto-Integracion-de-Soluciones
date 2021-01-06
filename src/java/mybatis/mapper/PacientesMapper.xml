@@ -24,6 +24,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         estatus
         FROM pacientes
     </select>
+    
+    <select id="login" resultType="Pojos.Pacientes" parameterType="map">
+        SELECT
+        idPaciente,
+        idMedico,
+        nombre,
+        apellidos,
+        fNac,
+        genero,
+        peso,
+        estatura,
+        talla,
+        email,
+        tel,
+        domicilio,
+        usuario,
+        contraseña,
+        estatus
+        FROM pacientes
+        WHERE usuario = #{usuario} AND contraseña = #{contraseña}
+    </select>
 
     <insert id="registrarPaciente" parameterType="Pojos.Pacientes">
         INSERT INTO pacientes (idMedico ,nombre, apellidos, fNac, genero, peso, estatura, talla, email, tel, domicilio, usuario, contraseña, paciente_foto, estatus)

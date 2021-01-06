@@ -87,6 +87,39 @@ public class FitNutritionWS {
         return paciente;
     }
     
+    @Path("loginPaciente")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje loginPaciente (@FormParam("usuario") String usuario, @FormParam("contraseña") String contraseña){
+        Mensaje respuesta = new Mensaje();
+        SqlSession conn = MyBatisUtil.getSession();
+        Pacientes user = new Pacientes();
+        HashMap<String,Object> param = new HashMap<>();
+        param.put("usuario", usuario);
+        param.put("contraseña", contraseña);
+        
+        if(conn != null){
+            try {
+                user = conn.selectOne("Pacientes.login", param);
+                conn.commit();
+                if( user !=  null && user.getIdPaciente()> 0){
+                    respuesta.setError(false);
+                    respuesta.setMensaje(""+user.getIdPaciente());
+                }else{
+                    respuesta.setError(true);
+                    respuesta.setMensaje("Credenciales Incorectas");
+                }
+            } catch (Exception e) {
+                respuesta.setError(true);
+                respuesta.setMensaje(e.getMessage());
+            }
+        }else{
+            respuesta.setError(true);
+            respuesta.setMensaje("No hay conexión con la BD...");
+        }
+        return respuesta;
+    }
+    
     @Path("registrarPaciente")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
