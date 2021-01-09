@@ -9,13 +9,20 @@ import Pojos.Alimentos;
 import Pojos.Medico;
 import Pojos.Mensaje;
 import Pojos.TipoPorcionAlimentos;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import mybatis.MyBatisUtil;
@@ -185,7 +192,7 @@ public class AlimentoyMedico {
             @FormParam("estatus") String estatus){
         Mensaje respuesta = new Mensaje();
         
-        Medico medi =  new Medico(0,nombre, apellidos, fNac, genero, domicilio, numPersonal, cedulaProfesional, contraseña, foto_medico, estatus);
+        Medico medi =  new Medico(0,nombre, apellidos, fNac, genero, domicilio, numPersonal, cedulaProfesional, contraseña, estatus);
         SqlSession conn = MyBatisUtil.getSession();
         
         if(conn != null){
@@ -244,10 +251,9 @@ public class AlimentoyMedico {
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje editarMedico(@FormParam("idMedico") int idMedico, @FormParam("nombre") String nombre, @FormParam("apellidos") String apellidos, @FormParam("fNac") String fNac,
             @FormParam("genero") String genero, @FormParam("domicilio") String domicilio, @FormParam("numPersonal") int numPersonal,
-            @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contraseña") String contraseña, @FormParam("foto_medico") String foto_medico,
-            @FormParam("estatus") String estatus){
+            @FormParam("cedulaProfesional") String cedulaProfesional, @FormParam("contraseña") String contraseña, @FormParam("estatus") String estatus){
         Mensaje respuesta = new Mensaje();
-        Medico medico = new Medico(idMedico, nombre, apellidos, fNac, genero, domicilio, numPersonal, cedulaProfesional, contraseña, foto_medico, estatus);
+        Medico medico = new Medico(idMedico, nombre, apellidos, fNac, genero, domicilio, numPersonal, cedulaProfesional, contraseña, estatus);
         SqlSession conn =  MyBatisUtil.getSession();
         if(conn != null){
            try{
@@ -269,5 +275,82 @@ public class AlimentoyMedico {
            respuesta.setMensaje("No hay conexión con la BD...");
         }
         return respuesta;
+    }
+    
+    @Path("SubirImagen/{idMedico}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje subirImagen(byte[] foto_medico, @PathParam("idMedico") int idMedico){
+        SqlSession con = MyBatisUtil.getSession();
+        Medico medico = new Medico();
+        medico.setIdMedico(idMedico);;
+        medico.setFoto(foto_medico);
+        Mensaje msj = new Mensaje();
+        try{
+            int res = con.update("AlimentosyMedicos.enviarImgAerolinea", medico);
+            con.commit();
+            if(res > 0){
+                msj.setError(false);
+                msj.setMensaje("Imagen subida con éxito");
+            }else{
+                msj.setError(true);
+                msj.setMensaje("No se pudo guardar la imagen");
+            }
+        }catch(Exception ex){
+            msj.setError(true);
+            msj.setMensaje(ex.getMessage());
+        }finally{
+            con.close();
+        }
+        return msj;
+    }
+    
+    @Path("getImgAerolinea/{idMedico}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje getImgAerolinea(@PathParam("idMedico") int idMedico){
+        Mensaje msj = new Mensaje();
+        SqlSession con = MyBatisUtil.getSession();
+        String PATH = "/Users/FAMSA/Desktop/imgMedicos/"+idMedico+".png";
+        if(con != null){
+            try{
+                Medico medico = con.selectOne("AlimentosyMedicos.getImgAerolinea", idMedico);
+                System.out.println("Medico: "+ medico.getNombre());
+                boolean isSave = EscribeImgAvion(PATH, medico.getFoto());
+                if(isSave){
+                    msj.setError(false);
+                    msj.setMensaje(PATH);
+                }else{
+                    msj.setError(true);
+                    msj.setMensaje("No se pudo obtener la imagen");
+                }
+            }catch(Exception ex){
+                
+            }
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Sin conexion a la BD");
+        }
+        return msj;
+    }
+    
+    private boolean EscribeImgAvion(String path, byte[] bytes){
+       InputStream in = new ByteArrayInputStream(bytes);
+        try {
+            BufferedImage buffImage = ImageIO.read(in);
+            ImageIO.write(buffImage, "png", new File(path));
+            return true;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (in != null){
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return false;
     }
 }
