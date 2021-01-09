@@ -9,8 +9,21 @@ public class Dieta {
     private String hora_dia;
     private float calorias_dieta;
     private String observaciones;
+    
+    private String tipo;
 
     public Dieta() {
+    }
+
+    public Dieta(int idDieta, int idAlimento, int numero_dieta, String cantidad, String hora_dia, float calorias_dieta, String observaciones, String tipo) {
+        this.idDieta = idDieta;
+        this.idAlimento = idAlimento;
+        this.numero_dieta = numero_dieta;
+        this.cantidad = cantidad;
+        this.hora_dia = hora_dia;
+        this.calorias_dieta = calorias_dieta;
+        this.observaciones = observaciones;
+        this.tipo = tipo;
     }
 
     public Dieta(int idDieta, int idAlimento, int numero_dieta, String cantidad, String hora_dia, float calorias_dieta, String observaciones) {
@@ -22,7 +35,7 @@ public class Dieta {
         this.calorias_dieta = calorias_dieta;
         this.observaciones = observaciones;
     }
-
+    
     public Dieta(int idDieta, String cantidad, String hora_dia, float calorias_dieta, String observaciones) {
         this.idDieta = idDieta;
         this.cantidad = cantidad;
@@ -85,6 +98,14 @@ public class Dieta {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
 }

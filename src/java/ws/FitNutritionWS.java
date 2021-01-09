@@ -28,6 +28,8 @@ import org.apache.ibatis.session.SqlSession;
 import Pojos.Medico;
 import Pojos.Mensaje;
 import Pojos.Pacientes;
+import Pojos.TipoMedico;
+import Pojos.TipoAlimento;
 
 @Path("fitNutrition")
 public class FitNutritionWS {
@@ -70,23 +72,7 @@ public class FitNutritionWS {
         }
         return respuesta;
     }
-    
-    @Path("getAllPacientes")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Pacientes> getPacientes(){
-        List<Pacientes> paciente = null;
-        SqlSession conn = MyBatisUtil.getSession();
-        if (conn != null) {
-            try {
-                paciente = conn.selectList("Pacientes.getAllPacientes");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return paciente;
-    }
-    
+
     @Path("loginPaciente")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -118,6 +104,38 @@ public class FitNutritionWS {
             respuesta.setMensaje("No hay conexión con la BD...");
         }
         return respuesta;
+    }
+
+    @Path("getAllPacientes")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Pacientes> getPacientes(){
+        List<Pacientes> paciente = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if (conn != null) {
+            try {
+                paciente = conn.selectList("Pacientes.getAllPacientes");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return paciente;
+    }
+    
+    @Path("getTiposMedico")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TipoMedico> getTipoMedicos(){
+        List<TipoMedico> tipoAero = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if (conn != null) {
+            try {
+                tipoAero = conn.selectList("Pacientes.getTiposMedico");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return tipoAero;
     }
     
     @Path("registrarPaciente")
@@ -155,9 +173,11 @@ public class FitNutritionWS {
     @Path("actualizarPaciente")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje editarPaciente(@FormParam("idPaciente") Integer idPaciente, @FormParam("peso") float peso, @FormParam("estatura") float estatura, @FormParam("tel") Integer tel){
+    public Mensaje editarPaciente(@FormParam("idPaciente") Integer idPaciente, @FormParam("peso") float peso, @FormParam("estatura") float estatura,
+            @FormParam("talla") Integer talla, @FormParam("email") String email, @FormParam("tel") Integer tel, @FormParam("domicilio") String domicilio,
+            @FormParam("usuario") String usuario, @FormParam("contraseña") String contraseña, @FormParam("paciente_foto") String paciente_foto){
         Mensaje respuesta = new Mensaje();
-        Pacientes paciente = new Pacientes(idPaciente, peso, estatura, tel);
+        Pacientes paciente = new Pacientes(idPaciente, peso, estatura, talla, email, tel, domicilio, usuario, contraseña, paciente_foto);
         SqlSession conn =  MyBatisUtil.getSession();
         if(conn != null){
            try{
@@ -224,6 +244,22 @@ public class FitNutritionWS {
             }
         }
         return dieta;
+    }
+    
+    @Path("getTiposAlimentos")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TipoAlimento> getTipoAlimentos(){
+        List<TipoAlimento> tipoAero = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if (conn != null) {
+            try {
+                tipoAero = conn.selectList("Dieta.getTiposAlimentos");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return tipoAero;
     }
     
     @Path("registrarDieta")
@@ -312,4 +348,5 @@ public class FitNutritionWS {
         }
         return respuesta;
     }
+    
 }

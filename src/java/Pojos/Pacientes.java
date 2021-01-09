@@ -18,8 +18,30 @@ public class Pacientes {
     private String contraseña;
     private String paciente_foto;
     private String estatus;
+    
+    private String tipo;
 
     public Pacientes() {
+    }
+
+    public Pacientes(int idPaciente, int idMedico, String nombre, String apellidos, String fNac, String genero, float peso, float estatura, int talla, String email, int tel, String domicilio, String usuario, String contraseña, String paciente_foto, String estatus, String tipo) {
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fNac = fNac;
+        this.genero = genero;
+        this.peso = peso;
+        this.estatura = estatura;
+        this.talla = talla;
+        this.email = email;
+        this.tel = tel;
+        this.domicilio = domicilio;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+        this.paciente_foto = paciente_foto;
+        this.estatus = estatus;
+        this.tipo = tipo;
     }
 
     public Pacientes(int idPaciente, int idMedico, String nombre, String apellidos, String fNac, String genero, float peso, float estatura, int talla, String email, int tel, String domicilio, String usuario, String contraseña, String paciente_foto, String estatus) {
@@ -40,12 +62,18 @@ public class Pacientes {
         this.paciente_foto = paciente_foto;
         this.estatus = estatus;
     }
-    
-    public Pacientes(int idPaciente, float peso, float estatura, int tel){
+
+    public Pacientes(int idPaciente, float peso, float estatura, int talla, String email, int tel, String domicilio, String usuario, String contraseña, String paciente_foto) {
         this.idPaciente = idPaciente;
         this.peso = peso;
         this.estatura = estatura;
+        this.talla = talla;
+        this.email = email;
         this.tel = tel;
+        this.domicilio = domicilio;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+        this.paciente_foto = paciente_foto;
     }
 
     public Pacientes(int idPaciente, String estatus){
@@ -179,6 +207,14 @@ public class Pacientes {
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
 }
