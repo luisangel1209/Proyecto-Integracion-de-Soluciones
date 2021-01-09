@@ -71,8 +71,6 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
     @FXML
     private TableColumn colContra;
     @FXML
-    private TableColumn colFoto;
-    @FXML
     private TableColumn colEstatus;
     
     private ObservableList<Medico> medicos;
@@ -97,7 +95,6 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
         this.colPersonal.setCellValueFactory(new PropertyValueFactory("numPersonal"));
         this.colCedula.setCellValueFactory(new PropertyValueFactory("cedulaProfesional"));
         this.colContra.setCellValueFactory(new PropertyValueFactory("contraseña"));
-        this.colFoto.setCellValueFactory(new PropertyValueFactory("foto"));
         this.colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
         cargaElementosTabla();
         FuncionBuscar();
@@ -174,7 +171,7 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
     @Override
     public void RefrescarTlaba(boolean dato) {
         System.out.println("Valor es: "+dato);
-        tbMedicos.getItems().clear();
+        //tbMedicos.getItems().clear();
         cargaElementosTabla();
     }
     

@@ -27,7 +27,6 @@
             <TableColumn fx:id="colPersonal" prefWidth="77.0" text="# Personal" />
             <TableColumn fx:id="colCedula" minWidth="7.0" prefWidth="135.0" text="Cedula Profesional" />
             <TableColumn fx:id="colContra" minWidth="7.0" prefWidth="84.0" text="Contraseña" />
-            <TableColumn fx:id="colFoto" minWidth="7.0" prefWidth="90.0" text="Foto" />
             <TableColumn fx:id="colEstatus" prefWidth="99.0" text="Estatus" />
          </columns>
       </TableView>

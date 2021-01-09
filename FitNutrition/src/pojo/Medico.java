@@ -7,7 +7,7 @@ package pojo;
 
 /**
  *
- * @author FAMSA
+ * @author Luis Angel
  */
 public class Medico {
     private int idMedico;
@@ -19,7 +19,7 @@ public class Medico {
     private int numPersonal;
     private String cedulaProfesional;
     private String contraseña;
-    private String foto;
+    private byte[] foto_medico;
     private String estatus;
 
     public Medico() {
@@ -30,7 +30,7 @@ public class Medico {
         this.estatus = estatus;
     }
 
-    public Medico(int idMedico, String nombre, String apellidos, String fNac, String genero, String domicilio, int numPersonal, String cedulaProfesional, String contraseña, String foto_medico, String estatus) {
+    public Medico(int idMedico, String nombre, String apellidos, String fNac, String genero, String domicilio, int numPersonal, String cedulaProfesional, String contraseña, String estatus) {
         this.idMedico = idMedico;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -40,7 +40,6 @@ public class Medico {
         this.numPersonal = numPersonal;
         this.cedulaProfesional = cedulaProfesional;
         this.contraseña = contraseña;
-        this.foto = foto_medico;
         this.estatus = estatus;
     }
 
@@ -116,12 +115,12 @@ public class Medico {
         this.contraseña = contraseña;
     }
 
-    public String getFoto() {
-        return foto;
+    public byte[] getFoto() {
+        return foto_medico;
     }
 
-    public void setFoto(String foto_medico) {
-        this.foto = foto_medico;
+    public void setFoto(byte[] foto) {
+        this.foto_medico = foto;
     }
 
     public String getEstatus() {

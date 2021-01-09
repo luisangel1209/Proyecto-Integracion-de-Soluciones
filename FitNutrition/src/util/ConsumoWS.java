@@ -134,4 +134,38 @@ public class ConsumoWS {
         }
         return resp;
     }
+    
+    /////////////////////////////////////////////////////
+    
+    public static RespuestaWS consumoWSPOST(String url, byte[] parametros){
+        RespuestaWS resp = new RespuestaWS();
+        try {
+            URL urlws = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection)urlws.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setConnectTimeout(Constantes.time_out);
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "image/png");
+            OutputStream os = conn.getOutputStream();
+            os.write(parametros);
+            os.flush();
+            conn.connect();
+            
+            //leer
+            System.out.println("Respuesta Codigo "+ conn.getResponseCode());
+            resp.setCodigo(conn.getResponseCode());
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+            BufferedReader br = new BufferedReader(in);
+            String salida;
+            while((salida = br.readLine()) != null){
+                resp.setMensaje(salida);
+                System.out.println(salida);
+            }
+            conn.disconnect();
+        } catch (Exception ex) {
+            resp.setCodigo(505);
+            resp.setMensaje(ex.getMessage());
+        }
+        return resp;
+    }
 }

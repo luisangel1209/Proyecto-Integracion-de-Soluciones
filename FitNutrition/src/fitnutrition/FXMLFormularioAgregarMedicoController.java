@@ -7,11 +7,18 @@ package fitnutrition;
 
 import NotificaCambios.NotificaCambios;
 import com.google.gson.Gson;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,8 +28,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+import org.apache.commons.io.IOUtils;
 import pojo.Medico;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
@@ -67,6 +78,7 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
     ObservableList<String> estatus = FXCollections.observableArrayList("Activo", "No Activo");
     @FXML
     private Button BotonGuardar;
+    byte[] foto_medico;
     
     /**
      * Initializes the controller class.
@@ -103,11 +115,60 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
             lbCedula.setText(medico.getCedulaProfesional());
             lbContra.setText(medico.getContraseña());
             comboEstatus.setValue(medico.getEstatus());
+            descargaImagen(medico.getIdMedico());
+        }
+    }
+    
+    private void descargaImagen(int idMedico){
+        String url = Constantes.URL + "AlimentosyMedicos/getImgAerolinea/"+idMedico;
+        RespuestaWS resp = ConsumoWS.consumoWSGET(url);
+        if(resp.getCodigo() == 200){
+            Gson gson = new Gson();
+            Mensaje msj = gson.fromJson(resp.getMensaje(), Mensaje.class);
+            if(!msj.isError() && msj.getMensaje() != null){
+                cargaImgComponente(msj.getMensaje());
+            }else{
+                DialogError("Error con la imagen", "Error al obtener la imagen");
+            }
+        }else{
+            DialogError("Error de conexión", "Lo sentimos, tenemos problemas con la conexión al servidor");
+        }
+    }
+    
+    private void cargaImgComponente(String path){
+        File file = new File(path);
+        try{
+           BufferedImage bf = ImageIO.read(file);
+           Image imgMedico = SwingFXUtils.toFXImage(bf, null);
+           fotoMedico.setImage(imgMedico);
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void clickSeleccionar(ActionEvent event) {
+        FileChooser seleccionarIm = new FileChooser();
+        seleccionarIm.setTitle("Seleccionar Foto");
+        FileChooser.ExtensionFilter ex = new FileChooser.ExtensionFilter("PNG files (*png)", "*.png");
+        seleccionarIm.getExtensionFilters().add(ex);
+        Stage stage = (Stage) lbNombre.getScene().getWindow();
+        File archivo = seleccionarIm.showOpenDialog(stage);
+        if(archivo != null){
+            try {
+                FileInputStream myStream = new FileInputStream(archivo);
+                foto_medico = IOUtils.toByteArray(myStream);
+                BufferedImage bfi = ImageIO.read(archivo);
+                Image log = SwingFXUtils.toFXImage(bfi, null);
+                fotoMedico.setImage(log);
+            } catch (IOException ex1) {
+                System.out.println("Error al cargar la imagen");
+                Logger.getLogger(FXMLFormularioAgregarMedicoController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            
+        }else{
+            System.out.println("No se encontro el archivo");
+        }
     }
 
     @FXML
@@ -115,11 +176,10 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
         if(isNuevo){
             String url = Constantes.URL + "AlimentosyMedicos/registroMedico";
             int numPerso = Integer.parseInt(lbNumeroPersonal.getText());
-            String foto = "Prueba";
             String date = ""+Date.getValue();
             String generoo = comboGenero.getValue();
             String estatuss = comboEstatus.getValue();
-            String parametros = String.format("nombre=%s&apellidos=%s&fNac=%s&genero=%s&domicilio=%s&numPersonal=%d&cedulaProfesional=%s&contraseña=%s&foto_medico=%s&estatus=%s", 
+            String parametros = String.format("nombre=%s&apellidos=%s&fNac=%s&genero=%s&domicilio=%s&numPersonal=%d&cedulaProfesional=%s&contraseña=%s&estatus=%s", 
                     lbNombre.getText(),
                     lbApellido.getText(),
                     date,
@@ -128,7 +188,6 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
                     numPerso,
                     lbCedula.getText(),
                     lbContra.getText(),
-                    foto,
                     estatuss
                     );
             
@@ -148,11 +207,10 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
         }else{
             String url = Constantes.URL + "AlimentosyMedicos/editarMedico";
             int numPerso = Integer.parseInt(lbNumeroPersonal.getText());
-            String foto = "Prueba";
             String date = ""+Date.getValue();
             String generoo = comboGenero.getValue();
             String estatuss = comboEstatus.getValue();
-            String parametros = String.format("idMedico=%d&nombre=%s&apellidos=%s&fNac=%s&genero=%s&domicilio=%s&numPersonal=%d&cedulaProfesional=%s&contraseña=%s&foto_medico=%s&estatus=%s", 
+            String parametros = String.format("idMedico=%d&nombre=%s&apellidos=%s&fNac=%s&genero=%s&domicilio=%s&numPersonal=%d&cedulaProfesional=%s&contraseña=%s&estatus=%s", 
                     medico.getIdMedico(),
                     lbNombre.getText(),
                     lbApellido.getText(),
@@ -162,7 +220,6 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
                     numPerso,
                     lbCedula.getText(),
                     lbContra.getText(),
-                    foto,
                     estatuss
                     );
             RespuestaWS res = ConsumoWS.consumoWSPUT(url, parametros);
@@ -173,6 +230,10 @@ public class FXMLFormularioAgregarMedicoController implements Initializable, Not
                     DialogError("Error al editar", msj.getMensaje());
                 }else{
                     muestraDialogo("Registro editado", msj.getMensaje());
+                    String urll = Constantes.URL + "AlimentosyMedicos/SubirImagen/"+medico.getIdMedico();
+                    System.out.println("URL " +Constantes.URL + "AlimentosyMedicos/SubirImagen/"+medico.getIdMedico());
+                    RespuestaWS respp = ConsumoWS.consumoWSPOST(urll, foto_medico);
+                    System.out.println(respp.getCodigo());
                     CerrarScena();
                 }
             }else{

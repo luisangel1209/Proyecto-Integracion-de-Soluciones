@@ -22,51 +22,68 @@ import javafx.stage.Stage;
  * @author maria
  */
 public class FXMLPrincipalController implements Initializable {
-    
+
     @FXML
-    private Button button;
-    @FXML
-    private Label lbErrorUsuario;
-    @FXML
-    private TextField tfUsuario;
-    @FXML
-    private PasswordField tfPassword;
-    @FXML
-    private Label lbErrorContraseña;
-   
-    
+    private Label lbBienvenido;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
+   
     @FXML
-    private void clicLogin (ActionEvent event){
-        lbErrorContraseña.setText("");
-        lbErrorUsuario.setText("");
-        String usuario = tfUsuario.getText();
-        String password = tfPassword.getText();
-        boolean isValido = true;
-        
-        if(usuario.isEmpty()){
-            lbErrorUsuario.setText("Campo usuario requerido");
-            isValido = false;
-        }
-        
-        if(password.isEmpty()){
-            lbErrorContraseña.setText("Campo contraseña requerido");
-            isValido = false;
-        }
-        if(isValido){
-            irPrincipal();
+    private void clicPacientes(ActionEvent event) {
+        try {
+            Stage stage = (Stage) lbBienvenido.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPacientes.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAdministradorController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void irPrincipal(){
+
+    @FXML
+    private void clicDietas(ActionEvent event) {
         try {
-            Stage stage = (Stage) tfUsuario.getScene().getWindow();
-            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLAdministrador.fxml")));
+            Stage stage = (Stage) lbBienvenido.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPacientes.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void clicAlimentos(ActionEvent event) {
+        try {
+            Stage stage = (Stage) lbBienvenido.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLAlimentos.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void clicCitas(ActionEvent event) {
+        try {
+            Stage stage = (Stage) lbBienvenido.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLCitas.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void clicConsultas(ActionEvent event) {
+        try {
+            Stage stage = (Stage) lbBienvenido.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPacientes.fxml")));
             stage.setScene(sceneprincipal);
             stage.show();
         } catch (IOException ex) {

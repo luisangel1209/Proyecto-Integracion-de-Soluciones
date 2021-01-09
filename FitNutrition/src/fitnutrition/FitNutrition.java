@@ -14,7 +14,7 @@ public class FitNutrition extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLAdministrador.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
         
         Scene scene = new Scene(root);
         
