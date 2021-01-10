@@ -26,7 +26,7 @@ import Pojos.Mensaje;
  *
  * @author maria
  */
-@Path("fitNutrition")
+@Path("fitNuutrition")
 public class CitayConsulta {
     
     @Context
@@ -43,9 +43,9 @@ public class CitayConsulta {
         List<Cita> resultado = null;
         SqlSession conn = MyBatisUtil.getSession();
         
-        if(conn != null){
+        if(conn != null){ 
             try {
-                resultado = conn.selectList("fitNutrition.getAllCitas");
+                resultado = conn.selectList("Cita.getAllCitas");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally{
