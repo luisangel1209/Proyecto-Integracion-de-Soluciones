@@ -45,7 +45,7 @@ public class CitayConsulta {
         
         if(conn != null){ 
             try {
-                resultado = conn.selectList("Cita.getAllCitas");
+                resultado = conn.selectList("Cita.getAllCita");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally{
@@ -147,6 +147,25 @@ public class CitayConsulta {
         return respuesta;
     }
     
+    @Path("getAllConsulta")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Consulta> getAllBdAlimentos(){
+        List<Consulta> resultado = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                resultado = conn.selectList("CitayConsulta.getAllConsulta");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }else{
+            System.out.println("Error de conexion");
+        }
+        return resultado;
+    }
     
     
     @Path("registraConsulta")
