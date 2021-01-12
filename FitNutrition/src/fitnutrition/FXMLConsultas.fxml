@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="779.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="fitnutrition.FXMLConsultasController">
+<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLConsultasController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Control Consultas">
          <font>
@@ -17,10 +16,10 @@
          </font>
       </Label>
       <TextField fx:id="tfBuscar" layoutX="14.0" layoutY="51.0" prefHeight="25.0" prefWidth="240.0" promptText="Buscar" />
-      <Button layoutX="421.0" layoutY="51.0" mnemonicParsing="false" text="Agregar" />
-      <Button layoutX="509.0" layoutY="51.0" mnemonicParsing="false" text="Editar" />
-      <Button layoutX="584.0" layoutY="51.0" mnemonicParsing="false" style="-fx-background-color: A93226;" text="Eliminar" textFill="WHITE" />
-      <TableView fx:id="tbConsulta" layoutX="14.0" layoutY="99.0" prefHeight="314.0" prefWidth="643.0">
+      <Button layoutX="421.0" layoutY="51.0" mnemonicParsing="false" onAction="#clicAgregar" text="Agregar" />
+      <Button layoutX="509.0" layoutY="51.0" mnemonicParsing="false" onAction="#clickEditar" text="Editar" />
+      <Button layoutX="584.0" layoutY="51.0" mnemonicParsing="false" onAction="#clickEliminar" style="-fx-background-color: A93226;" text="Eliminar" textFill="WHITE" />
+      <TableView fx:id="tbConsulta" layoutX="14.0" layoutY="99.0" prefHeight="342.0" prefWidth="752.0">
         <columns>
           <TableColumn fx:id="colIdPaciente" prefWidth="75.0" text="idPaciente" />
           <TableColumn fx:id="colObservaciones" prefWidth="337.0" text="Observaciones" />
@@ -29,5 +28,6 @@
             <TableColumn fx:id="colImc" text="IMC" />
         </columns>
       </TableView>
+      <Button layoutX="684.0" layoutY="15.0" mnemonicParsing="false" onAction="#Regresar" text="Regresar" />
    </children>
 </AnchorPane>
