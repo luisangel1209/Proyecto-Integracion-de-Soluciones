@@ -22,6 +22,6 @@
       <TextField fx:id="tfHoraCita" layoutX="83.0" layoutY="158.0" />
       <Label layoutX="21.0" layoutY="200.0" text="Observaciones" />
       <TextField fx:id="tfObservaciones" layoutX="108.0" layoutY="196.0" prefHeight="92.0" prefWidth="282.0" />
-      <Button layoutX="390.0" layoutY="68.0" mnemonicParsing="false" onAction="#clicEnviar" text="Guardar" />
+      <Button fx:id="botonGuardar" layoutX="390.0" layoutY="68.0" mnemonicParsing="false" onAction="#clicEnviar" text="Guardar" />
    </children>
 </AnchorPane>
