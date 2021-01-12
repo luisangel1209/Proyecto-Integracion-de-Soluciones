@@ -31,6 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pojo.Citas;
+import pojo.Mensaje;
 import pojo.RespuestaWS;
 import util.Constantes;
 import util.ConsumoWS;
@@ -78,8 +79,8 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
         RespuestaWS resp = ConsumoWS.consumoWSGET(url);
         if(resp.getCodigo() == 200){
             Gson gson = new Gson();
-            Type tipolistaaero = new TypeToken<List<Citas>>(){}.getType();
-            ArrayList<Citas> medicosBD = gson.fromJson(resp.getMensaje(), tipolistaaero);
+            Type tipolistacita = new TypeToken<List<Citas>>(){}.getType();
+            ArrayList<Citas> medicosBD = gson.fromJson(resp.getMensaje(), tipolistacita);
             cita = FXCollections.observableArrayList(medicosBD);
             tbCita.setItems(cita);
         }else{
@@ -119,6 +120,27 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
     
     @FXML
     private void clickEditar(ActionEvent event) {
+        int celda = tbCita.getSelectionModel().getSelectedIndex();
+        if(celda >= 0){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioAgregaCita.fxml"));
+                Parent root = loader.load();
+            
+                FXMLFormularioAgregaCitaController controlador = loader.getController();
+                controlador.InicializaCampos(this, false, cita.get(celda));
+            
+                Scene scForm = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scForm);
+                stage.showAndWait();
+            } catch (IOException ex) {
+                System.out.println("Error al cargar ventana");
+                Logger.getLogger(FXMLPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            DialogError("Selecciona registro", "Para editar un registro seleccionalo de la tabla");
+        }
     }
 
     @FXML
