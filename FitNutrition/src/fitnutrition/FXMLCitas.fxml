@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="449.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLCitasController">
+<AnchorPane id="AnchorPane" prefHeight="449.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLCitasController">
    <children>
       <Label layoutX="22.0" layoutY="23.0" text="Control Citas">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="tfBuscar" layoutX="22.0" layoutY="83.0" prefHeight="25.0" prefWidth="268.0" promptText="Buscar por nombre" />
+      <TextField fx:id="tfBuscar" layoutX="22.0" layoutY="83.0" prefHeight="25.0" prefWidth="268.0" promptText="Buscar" />
       <Button layoutX="300.0" layoutY="83.0" mnemonicParsing="false" text="Buscar" />
       <Button layoutX="418.0" layoutY="83.0" mnemonicParsing="false" onAction="#clicAgregar" text="Agregar" />
       <TableView fx:id="tbCita" layoutX="12.0" layoutY="131.0" prefHeight="293.0" prefWidth="639.0">
