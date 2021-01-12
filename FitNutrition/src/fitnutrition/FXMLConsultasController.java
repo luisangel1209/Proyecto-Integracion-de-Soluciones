@@ -184,4 +184,16 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
             tbConsulta.setItems(sortedDatos);
         }
     }
+    
+    @FXML
+    private void Regresar(ActionEvent event) {
+        try {
+            Stage stage = (Stage) tfBuscar.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
