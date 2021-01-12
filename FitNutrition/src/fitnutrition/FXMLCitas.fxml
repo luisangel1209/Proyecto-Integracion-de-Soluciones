@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLCitasController">
+<AnchorPane id="AnchorPane" prefHeight="449.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLCitasController">
    <children>
       <Label layoutX="22.0" layoutY="23.0" text="Control Citas">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="tfBuscar" layoutX="22.0" layoutY="58.0" prefHeight="25.0" prefWidth="268.0" promptText="Buscar por nombre" />
-      <Button layoutX="300.0" layoutY="58.0" mnemonicParsing="false" text="Buscar" />
-      <Button layoutX="418.0" layoutY="58.0" mnemonicParsing="false" onAction="#clicAgregar" text="Agregar" />
-      <TableView fx:id="tbCita" layoutX="14.0" layoutY="100.0" prefHeight="293.0" prefWidth="639.0">
+      <TextField fx:id="tfBuscar" layoutX="22.0" layoutY="83.0" prefHeight="25.0" prefWidth="268.0" promptText="Buscar por nombre" />
+      <Button layoutX="300.0" layoutY="83.0" mnemonicParsing="false" text="Buscar" />
+      <Button layoutX="418.0" layoutY="83.0" mnemonicParsing="false" onAction="#clicAgregar" text="Agregar" />
+      <TableView fx:id="tbCita" layoutX="12.0" layoutY="131.0" prefHeight="293.0" prefWidth="639.0">
         <columns>
           <TableColumn fx:id="colIdPaciente" prefWidth="75.0" text="id Paciente" />
           <TableColumn fx:id="colFechaCita" prefWidth="98.0" text="Fecha cita" />
@@ -26,7 +26,12 @@
             <TableColumn fx:id="colObservaciones" prefWidth="367.0" text="Observaciones" />
         </columns>
       </TableView>
-      <Button layoutX="492.0" layoutY="58.0" mnemonicParsing="false" onAction="#clickEditar" text="Editar" />
-      <Button layoutX="552.0" layoutY="58.0" mnemonicParsing="false" onAction="#clickEliminar" style="-fx-background-color: A93226;" text="Eliminar" textAlignment="CENTER" textFill="#f5f4f4" />
+      <Button layoutX="491.0" layoutY="83.0" mnemonicParsing="false" onAction="#clickEditar" text="Editar" />
+      <Button layoutX="553.0" layoutY="83.0" mnemonicParsing="false" onAction="#clickEliminar" style="-fx-background-color: A93226;" text="Eliminar" textAlignment="CENTER" textFill="#f5f4f4" />
+      <Button layoutX="577.0" layoutY="14.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="71.0" text="Regresar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

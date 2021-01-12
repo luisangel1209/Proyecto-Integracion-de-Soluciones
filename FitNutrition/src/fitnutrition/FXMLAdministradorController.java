@@ -267,4 +267,16 @@ public class FXMLAdministradorController implements Initializable, NotificaCambi
             DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
         }
     }
+
+    @FXML
+    private void CerrarSesion(ActionEvent event) {
+        try {
+            Stage stage = (Stage) TextBuscar.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

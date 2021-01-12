@@ -26,5 +26,10 @@
       </TableView>
       <Button layoutX="451.0" layoutY="74.0" mnemonicParsing="false" onAction="#clickEditar" text="Editar" />
       <Label layoutX="47.0" layoutY="78.0" text="Buscar Por:" />
+      <Button layoutX="479.0" layoutY="9.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="71.0" text="Regresar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

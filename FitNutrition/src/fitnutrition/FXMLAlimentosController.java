@@ -33,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pojo.Alimentos;
@@ -119,7 +120,6 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
     @Override
     public void RefrescarTlaba(boolean dato) {
         System.out.println("Valor es: "+dato);
-        tbAlimentos.getItems().clear();
         //tbAlimentos.getItems().clear();
         cargaElementosTabla();
     }
@@ -176,4 +176,16 @@ public class FXMLAlimentosController implements Initializable, NotificaCambios {
             tbAlimentos.setItems(sortedDatos);
         }
     }    
+
+    @FXML
+    private void Regresar(ActionEvent event) {
+        try {
+            Stage stage = (Stage) TextBuscar.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -37,5 +37,10 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Button layoutX="251.0" layoutY="344.0" mnemonicParsing="false" onAction="#CerrarSesion" text="Cerrar Sesión">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

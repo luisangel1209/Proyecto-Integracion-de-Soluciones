@@ -38,5 +38,10 @@
       <Button layoutX="717.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="25.0" prefWidth="77.0" text="Baja" />
       <Label layoutX="28.0" layoutY="67.0" text="Buscar por:" />
       <TextField fx:id="TextBuscar" layoutX="98.0" layoutY="63.0" prefHeight="25.0" prefWidth="176.0" promptText="Nombre" />
+      <Button layoutX="936.0" layoutY="19.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="71.0" text="Regresar">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

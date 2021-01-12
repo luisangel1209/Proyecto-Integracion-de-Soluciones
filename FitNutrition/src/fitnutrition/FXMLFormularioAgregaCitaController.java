@@ -29,7 +29,7 @@ import util.ConsumoWS;
  *
  * @author maria
  */
-public class FXMLFormularioAgregaCitaController implements Initializable {
+public class FXMLFormularioAgregaCitaController implements Initializable, NotificaCambios {
 
     @FXML
     private TextField idPaciente;
@@ -60,7 +60,7 @@ public class FXMLFormularioAgregaCitaController implements Initializable {
         this.cita = cita;
         this.notificacion = notificacion;
         if(!isNuevo){
-            labelTitulo.setText("Editar Aerolinea");
+            labelTitulo.setText("Editar Cita");
             cargaDatosEdicion();
         }
     }
@@ -69,7 +69,7 @@ public class FXMLFormularioAgregaCitaController implements Initializable {
         if(cita != null){
             //idPaciente.setText(cita.getIdPaciente());
             //dpFechaCita.(cita.getFechaCita());
-            tfHoraCita.setText(cita.getHoraCita());
+            tfHoraCita.setText(cita.getHora_Cita());
             tfObservaciones.setText(cita.getObservaciones());
         }
     }

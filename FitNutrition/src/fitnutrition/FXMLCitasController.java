@@ -43,7 +43,7 @@ import util.ConsumoWS;
  *
  * @author maria
  */
-public class FXMLCitasController implements Initializable {
+public class FXMLCitasController implements Initializable, NotificaCambios {
 
     @FXML
     private TextField tfBuscar;
@@ -65,16 +65,16 @@ public class FXMLCitasController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.colIdPaciente.setCellValueFactory(new PropertyValueFactory("id Paciente"));
-        this.colFechaCita.setCellValueFactory(new PropertyValueFactory("Fecha cita"));
-        this.colHoraCita.setCellValueFactory(new PropertyValueFactory("Hora cita"));
-        this.colObservaciones.setCellValueFactory(new PropertyValueFactory("Observaciones"));
+        this.colIdPaciente.setCellValueFactory(new PropertyValueFactory("idPaciente"));
+        this.colFechaCita.setCellValueFactory(new PropertyValueFactory("fecha_cita"));
+        this.colHoraCita.setCellValueFactory(new PropertyValueFactory("hora_cita"));
+        this.colObservaciones.setCellValueFactory(new PropertyValueFactory("observaciones"));
         
         cargaElementosTabla();
     }   
     
     private void cargaElementosTabla(){
-        String url = Constantes.URL + "allbdCita";
+        String url = Constantes.URL + "fitNuutrition/getAllCita";
         RespuestaWS resp = ConsumoWS.consumoWSGET(url);
         if(resp.getCodigo() == 200){
             Gson gson = new Gson();
@@ -102,7 +102,7 @@ public class FXMLCitasController implements Initializable {
             Parent root = loader.load();
             
             FXMLFormularioAgregaCitaController controlador = loader.getController();
-            controlador.InicializaCampos((NotificaCambios) this,true,null); //falta corregir
+            controlador.InicializaCampos(this,true,null); //falta corregir
                     
             Scene scFormulario = new Scene(root);
             Stage stage = new Stage();
@@ -146,7 +146,7 @@ public class FXMLCitasController implements Initializable {
                         String CaseFilter = newValue.toLowerCase();
                         if(busqueda.getIdPaciente().toString().contains(CaseFilter)){
                             return true;
-                        }else if(busqueda.getIdCita().toString().contains(CaseFilter)){
+                        }else if(busqueda.getIdCitas().toString().contains(CaseFilter)){
                             return true;
                         }
                         return false;
@@ -158,7 +158,16 @@ public class FXMLCitasController implements Initializable {
             tbCita.setItems(sortedDatos);
         }
     }
-    
-   
-     
+
+    @FXML
+    private void Regresar(ActionEvent event) {
+        try {
+            Stage stage = (Stage) tfBuscar.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

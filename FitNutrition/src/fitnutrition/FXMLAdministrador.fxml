@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="539.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLAdministradorController">
+<AnchorPane id="AnchorPane" prefHeight="539.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLAdministradorController">
    <children>
       <Label layoutX="37.0" layoutY="24.0" text="Control de Medicos">
          <font>
@@ -17,7 +17,7 @@
       </Label>
       <TextField fx:id="TextBuscar" layoutX="105.0" layoutY="64.0" prefHeight="25.0" prefWidth="176.0" promptText="Nombre/Cedula Profesional" />
       <Button layoutX="399.0" layoutY="64.0" mnemonicParsing="false" onAction="#clickAgregar" text="Agregar" />
-      <TableView fx:id="tbMedicos" layoutX="37.0" layoutY="114.0" onMouseClicked="#Baja" prefHeight="386.0" prefWidth="953.0">
+      <TableView fx:id="tbMedicos" layoutX="37.0" layoutY="114.0" onMouseClicked="#Baja" prefHeight="386.0" prefWidth="845.0">
          <columns>
             <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
             <TableColumn fx:id="colApellidos" prefWidth="100.0" text="Apellidos" />
@@ -34,5 +34,6 @@
       <Button fx:id="BotonDarBaja" layoutX="664.0" layoutY="64.0" mnemonicParsing="false" onAction="#clickDarBaja" style="-fx-background-color: A93226;" text="Dar de Baja" textFill="WHITE" />
       <Button fx:id="BotonActivar" layoutX="576.0" layoutY="64.0" mnemonicParsing="false" onAction="#Activar" style="-fx-background-color: #38d00a;" text="Activar" textFill="#fcfffb" />
       <Label layoutX="37.0" layoutY="68.0" text="Buscar Por:" />
+      <Button layoutX="786.0" layoutY="8.0" mnemonicParsing="false" onAction="#CerrarSesion" text="Cerrar Sesión" />
    </children>
 </AnchorPane>

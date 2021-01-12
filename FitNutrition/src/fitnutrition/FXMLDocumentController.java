@@ -56,19 +56,23 @@ public class FXMLDocumentController implements Initializable {
             isValido = false;
         }
         if(isValido){
-            String parametros = String.format("cedulaProfesional=%s&contraseña=%s", username, password);
-            String url = Constantes.URL + "fitNutrition/login";
-            RespuestaWS resp = ConsumoWS.consumoWSPOST(url, parametros);
-            if(resp.getCodigo() == 200){
-                Gson gson = new Gson();
-                Mensaje msj = gson.fromJson(resp.getMensaje(), Mensaje.class);
-                if(msj.isError()){
-                    DialogError("Usuario no encontrado", msj.getMensaje());
-                }else{
-                    irPrincipal();
-                }
+            if(username.equalsIgnoreCase("Admin") && password.equalsIgnoreCase("Admin")){
+                irAdministrador();
             }else{
-                DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+                String parametros = String.format("cedulaProfesional=%s&contraseña=%s", username, password);
+                String url = Constantes.URL + "fitNutrition/login";
+                RespuestaWS resp = ConsumoWS.consumoWSPOST(url, parametros);
+                if(resp.getCodigo() == 200){
+                    Gson gson = new Gson();
+                    Mensaje msj = gson.fromJson(resp.getMensaje(), Mensaje.class);
+                    if(msj.isError()){
+                        DialogError("Usuario no encontrado", msj.getMensaje());
+                    }else{
+                        irPrincipal();
+                    }
+                }else{
+                    DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+                }
             }
         }
     }
@@ -76,7 +80,18 @@ public class FXMLDocumentController implements Initializable {
     private void irPrincipal(){
         try {
             Stage stage = (Stage) textusuario.getScene().getWindow();
-            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPacientes.fxml")));
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void irAdministrador(){
+        try {
+            Stage stage = (Stage) textusuario.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLAdministrador.fxml")));
             stage.setScene(sceneprincipal);
             stage.show();
         } catch (IOException ex) {

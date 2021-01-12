@@ -10,29 +10,29 @@ package pojo;
  * @author maria
  */
 public class Citas {
-    private Integer idCita;
+    private Integer idCitas;
     private Integer idPaciente;
-    private String fechaCita;
-    private String horaCita;
-    private String Observaciones;
+    private String fecha_cita;
+    private String hora_cita;
+    private String observaciones;
 
     public Citas() {
     }
 
-    public Citas(Integer idCita, Integer idPaciente, String fechaCita, String horaCita, String Observaciones) {
-        this.idCita = idCita;
+    public Citas(Integer idCitas, Integer idPaciente, String fecha_cita, String hora_cita, String observaciones) {
+        this.idCitas = idCitas;
         this.idPaciente = idPaciente;
-        this.fechaCita = fechaCita;
-        this.horaCita = horaCita;
-        this.Observaciones = Observaciones;
+        this.fecha_cita = fecha_cita;
+        this.hora_cita = hora_cita;
+        this.observaciones = observaciones;
     }
 
-    public Integer getIdCita() {
-        return idCita;
+    public Integer getIdCitas() {
+        return idCitas;
     }
 
-    public void setIdCita(Integer idCita) {
-        this.idCita = idCita;
+    public void setIdCitas(Integer idCitas) {
+        this.idCitas = idCitas;
     }
 
     public Integer getIdPaciente() {
@@ -43,29 +43,29 @@ public class Citas {
         this.idPaciente = idPaciente;
     }
 
-    public String getFechaCita() {
-        return fechaCita;
+    public String getFecha_Cita() {
+        return fecha_cita;
     }
 
-    public void setFechaCita(String fechaCita) {
-        this.fechaCita = fechaCita;
+    public void setFecha_Cita(String fecha_Cita) {
+        this.fecha_cita = fecha_Cita;
     }
 
-    public String getHoraCita() {
-        return horaCita;
+    public String getHora_Cita() {
+        return hora_cita;
     }
 
-    public void setHoraCita(String horaCita) {
-        this.horaCita = horaCita;
+    public void setHora_Cita(String hora_Cita) {
+        this.hora_cita = hora_Cita;
     }
 
     public String getObservaciones() {
-        return Observaciones;
+        return observaciones;
     }
 
-    public void setObservaciones(String Observaciones) {
-        this.Observaciones = Observaciones;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
-
+    
     
 }
