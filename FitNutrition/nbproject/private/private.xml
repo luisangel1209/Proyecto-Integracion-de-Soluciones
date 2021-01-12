@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/FAMSA/Documents/NetBeansProjects/parteEscritorio/FitNutrition/src/fitnutrition/FitNutrition.java</file>
-            <file>file:/C:/Users/FAMSA/Documents/NetBeansProjects/parteEscritorio/FitNutrition/src/fitnutrition/FXMLPrincipalController.java</file>
-            <file>file:/C:/Users/FAMSA/Documents/NetBeansProjects/parteEscritorio/FitNutrition/src/fitnutrition/FXMLPrincipal.fxml</file>
+            <file>file:/C:/Users/maria/Downloads/Proyecto-Integracion-de-Soluciones/FitNutrition/src/fitnutrition/FXMLConsultasController.java</file>
+            <file>file:/C:/Users/maria/Downloads/Proyecto-Integracion-de-Soluciones/FitNutrition/src/fitnutrition/FXMLFormularioAgregaConsultaController.java</file>
+            <file>file:/C:/Users/maria/Downloads/Proyecto-Integracion-de-Soluciones/FitNutrition/src/fitnutrition/FXMLCitasController.java</file>
+            <file>file:/C:/Users/maria/Downloads/Proyecto-Integracion-de-Soluciones/FitNutrition/src/fitnutrition/FXMLFormularioAgregaCitaController.java</file>
         </group>
     </open-files>
 </project-private>
