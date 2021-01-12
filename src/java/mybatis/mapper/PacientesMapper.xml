@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE usuario = #{usuario} AND contraseña = #{contraseña}
     </select>
     
-    <select id="getAllPacientes" resultType="pojos.Pacientes">
+    <select id="getAllPacientes" resultType="Pojos.Pacientes">
         SELECT
         idPaciente,
         pacientes.nombre,
@@ -48,24 +48,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INNER JOIN tipomedico ON pacientes.idMedico = tipomedico.idMedico
     </select>
     
-    <select id="getTiposMedico" resultType="pojos.TipoMedico">
+    <select id="getTiposMedico" resultType="Pojos.TipoMedico">
         SELECT
         idMedico,
         nombre
         FROM tipomedico
     </select>
 
-    <insert id="registrarPaciente" parameterType="pojos.Pacientes">
+    <insert id="registrarPaciente" parameterType="Pojos.Pacientes">
         INSERT INTO pacientes (idMedico ,nombre, apellidos, fNac, genero, peso, estatura, talla, email, tel, domicilio, usuario, contraseña, paciente_foto, estatus)
         VALUES (#{idMedico},#{nombre},#{apellidos},#{fNac},#{genero},#{peso},#{estatura},#{talla},#{email},#{tel},#{domicilio},#{usuario},#{contraseña},#{paciente_foto},#{estatus})
     </insert>
     
-    <update id="actualizarPaciente" parameterType="pojos.Pacientes">
+    <update id="actualizarPaciente" parameterType="Pojos.Pacientes">
         UPDATE pacientes SET peso = #{peso}, estatura = #{estatura}, talla = #{talla}, email = #{email}, tel = #{tel}, domicilio = #{domicilio}, usuario = #{usuario}, contraseña = #{contraseña}, paciente_foto = #{paciente_foto}
         WHERE idPaciente = #{idPaciente}
     </update>
         
-    <update id="bajaPaciente" parameterType="pojos.Pacientes">
+    <update id="bajaPaciente" parameterType="Pojos.Pacientes">
         UPDATE pacientes SET estatus = #{estatus} 
         WHERE idPaciente = #{idPaciente}
     </update>

@@ -45,7 +45,7 @@ public class CitayConsulta {
         
         if(conn != null){ 
             try {
-                resultado = conn.selectList("Cita.getAllCita");
+                resultado = conn.selectList("Cita.getAllCitas");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally{
