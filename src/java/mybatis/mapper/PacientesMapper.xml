@@ -21,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         domicilio,
         usuario,
         contraseña,
+        paciente_foto,
         estatus
         FROM pacientes
         WHERE usuario = #{usuario} AND contraseña = #{contraseña}

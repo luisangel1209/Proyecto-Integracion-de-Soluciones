@@ -76,8 +76,8 @@ public class FitNutritionWS {
     @Path("loginPaciente")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje loginPaciente (@FormParam("usuario") String usuario, @FormParam("contraseña") String contraseña){
-        Mensaje respuesta = new Mensaje();
+    public Pacientes loginPaciente (@FormParam("usuario") String usuario, @FormParam("contraseña") String contraseña){
+        Pacientes respuesta = new Pacientes();
         SqlSession conn = MyBatisUtil.getSession();
         Pacientes user = new Pacientes();
         HashMap<String,Object> param = new HashMap<>();
@@ -89,19 +89,25 @@ public class FitNutritionWS {
                 user = conn.selectOne("Pacientes.login", param);
                 conn.commit();
                 if( user !=  null && user.getIdPaciente()> 0){
-                    respuesta.setError(false);
-                    respuesta.setMensaje(""+user.getIdPaciente());
+                    respuesta.setIdPaciente(user.getIdPaciente());
+                    respuesta.setNombre(user.getNombre());
+                    respuesta.setPeso(user.getPeso());
+                    respuesta.setEstatura(user.getEstatura());
+                    respuesta.setTalla(user.getTalla());
+                    respuesta.setEmail(user.getEmail());
+                    respuesta.setTel(user.getTel());
+                    respuesta.setDomicilio(user.getDomicilio());
+                    respuesta.setUsuario(user.getUsuario());
+                    respuesta.setContraseña(user.getContraseña());
+                    respuesta.setPaciente_foto(user.getPaciente_foto());
                 }else{
-                    respuesta.setError(true);
-                    respuesta.setMensaje("Credenciales Incorectas");
+                    respuesta.setUsuario("Credenciales Incorrectas");
                 }
             } catch (Exception e) {
-                respuesta.setError(true);
-                respuesta.setMensaje(e.getMessage());
+                respuesta.setUsuario(e.getMessage());
             }
         }else{
-            respuesta.setError(true);
-            respuesta.setMensaje("No hay conexión con la BD...");
+            respuesta.setUsuario("No hay conexión con la BD...");
         }
         return respuesta;
     }
