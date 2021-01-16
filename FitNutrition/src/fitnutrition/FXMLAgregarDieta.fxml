@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLAgregarDietaController">
+   <children>
+      <Label fx:id="labelTitulo" layoutX="29.0" layoutY="28.0" text="Agregar Dieta">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="85.0" text="Alimento" />
+      <Label layoutX="36.0" layoutY="124.0" text="Numero Dieta" />
+      <Label layoutX="36.0" layoutY="164.0" text="Cantidad" />
+      <Label layoutX="36.0" layoutY="209.0" text="Hora del Dia" />
+      <Label layoutX="33.0" layoutY="251.0" text="Calorias de la Dieta" />
+      <Label layoutX="35.0" layoutY="297.0" text="Observaciones" />
+      <TextField fx:id="txtnumero_dieta" layoutX="142.0" layoutY="120.0" />
+      <TextField fx:id="txtcantidad" layoutX="142.0" layoutY="160.0" />
+      <TextField fx:id="txthora_dia" layoutX="142.0" layoutY="205.0" />
+      <TextField fx:id="txtcalorias" layoutX="142.0" layoutY="247.0" />
+      <TextField fx:id="txtobservaciones" layoutX="142.0" layoutY="293.0" prefHeight="60.0" prefWidth="182.0" />
+      <Button layoutX="150.0" layoutY="365.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="25.0" prefWidth="75.0" text="Guardar" />
+      <TextField fx:id="txtidalimento" layoutX="142.0" layoutY="81.0" />
+   </children>
+</AnchorPane>

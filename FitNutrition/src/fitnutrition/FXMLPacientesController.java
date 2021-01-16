@@ -30,11 +30,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -74,9 +76,15 @@ public class FXMLPacientesController implements Initializable, NotificaCambios {
     private ObservableList<Pacientes> paciente;
     @FXML
     private TableColumn colfNac;
+    @FXML
+    private Button BotonActivar;
+    @FXML
+    private Button BotonDarBaja;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //BotonDarBaja.setDisable(true);
+        //BotonActivar.setDisable(true);
         this.colnombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         this.colapellidos.setCellValueFactory(new PropertyValueFactory("apellidos"));
         this.colfNac.setCellValueFactory(new PropertyValueFactory("fNac"));
@@ -112,9 +120,9 @@ public class FXMLPacientesController implements Initializable, NotificaCambios {
     @FXML
     private void clickAgregar(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioAgregaPaciente.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAgregarPaciente.fxml"));
             Parent root = loader.load();
-            FXMLFormularioAgregaPacienteController controlador = loader.getController();
+            FXMLAgregarPacienteController controlador = loader.getController();
             controlador.InicializaCampos(this, true, null);
             Scene scForm = new Scene(root);
             Stage stage = new Stage();
@@ -129,16 +137,31 @@ public class FXMLPacientesController implements Initializable, NotificaCambios {
 
     @FXML
     private void clickEditar(ActionEvent event) {
-    }
-
-    @FXML
-    private void clickEliminar(ActionEvent event) {
+        int celda = tbPacientes.getSelectionModel().getSelectedIndex();
+        if(celda >= 0){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAgregarPaciente.fxml"));
+                Parent root = loader.load();
+                FXMLAgregarPacienteController controlador = loader.getController();
+                controlador.InicializaCampos(this, false, paciente.get(celda));
+                Scene scForm = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scForm);
+                stage.showAndWait();
+            } catch (IOException ex) {
+                System.out.println("Error al cargar ventana");
+                Logger.getLogger(FXMLPacientesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            DialogError("Selecciona registro", "Para editar un registro seleccionalo de la tabla");
+        }
     }
 
     @Override
     public void RefrescarTlaba(boolean dato) {
         System.out.println("El valor es: "+dato);
-        tbPacientes.getItems().clear();
+        //tbPacientes.getItems().clear();
         cargaElementosTabla();
     }
 
@@ -176,14 +199,60 @@ public class FXMLPacientesController implements Initializable, NotificaCambios {
     }   
 
     @FXML
-    private void Regresar(ActionEvent event) {
-        try {
-            Stage stage = (Stage) TextBuscar.getScene().getWindow();
-            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
-            stage.setScene(sceneprincipal);
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+    private void Activar(ActionEvent event) {
+        int idPaciente = tbPacientes.getSelectionModel().getSelectedItem().getIdPaciente();
+        String url = Constantes.URL + "fitNutrition/bajaPaciente";
+        String estatus = "Activo";
+        String parametros = String.format("idPaciente=%d&estatus=%s", 
+            idPaciente,
+            estatus);
+        RespuestaWS res = ConsumoWS.consumoWSPUT(url, parametros);
+        if(res.getCodigo() == 200){
+            Gson gson = new Gson();
+            Mensaje msj = gson.fromJson(res.getMensaje(), Mensaje.class);
+            if(msj.isError()){
+                DialogError("Error al activar", msj.getMensaje());
+            }else{
+                DialogError("Activación", "Paciente Activado correctamente...");
+                RefrescarTlaba(true);
+            }
+        }else{
+            DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+        }
+    }
+
+    @FXML
+    private void Baja(MouseEvent event) {
+        String bandera = tbPacientes.getSelectionModel().getSelectedItem().getEstatus();
+        if(!"Activo".equals(bandera)){
+            BotonDarBaja.setDisable(true);
+            BotonActivar.setDisable(false);
+        }else{
+            BotonDarBaja.setDisable(false);
+            BotonActivar.setDisable(true);
+        }
+    }
+    
+    @FXML
+    private void clickDarBaja(ActionEvent event) {
+        int idPaciente = tbPacientes.getSelectionModel().getSelectedItem().getIdPaciente();
+        String url = Constantes.URL + "fitNutrition/bajaPaciente";
+        String estatus = "No Activo";
+        String parametros = String.format("idPaciente=%d&estatus=%s", 
+            idPaciente,
+            estatus);
+        RespuestaWS res = ConsumoWS.consumoWSPUT(url, parametros);
+        if(res.getCodigo() == 200){
+            Gson gson = new Gson();
+            Mensaje msj = gson.fromJson(res.getMensaje(), Mensaje.class);
+            if(msj.isError()){
+                DialogError("Error al desactivar", msj.getMensaje());
+            }else{
+                DialogError("Paciente dado de baja correctamente...", msj.getMensaje());
+                RefrescarTlaba(true);
+            }
+        }else{
+            DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
         }
     }
 }

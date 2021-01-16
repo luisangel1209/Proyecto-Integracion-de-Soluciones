@@ -19,10 +19,12 @@ public class Pacientes {
     private String paciente_foto;
     private String estatus;
 
+    private String tipo;
+    
     public Pacientes() {
     }
 
-    public Pacientes(int idPaciente, int idMedico, String nombre, String apellidos, String fNac, String genero, float peso, float estatura, int talla, String email, int tel, String domicilio, String usuario, String contraseña, String paciente_foto, String estatus) {
+    public Pacientes(int idPaciente, int idMedico, String nombre, String apellidos, String fNac, String genero, float peso, float estatura, int talla, String email, int tel, String domicilio, String usuario, String contraseña, String paciente_foto, String estatus, String tipo) {
         this.idPaciente = idPaciente;
         this.idMedico = idMedico;
         this.nombre = nombre;
@@ -39,6 +41,7 @@ public class Pacientes {
         this.contraseña = contraseña;
         this.paciente_foto = paciente_foto;
         this.estatus = estatus;
+        this.tipo = tipo;
     }
     
     public Pacientes(int idPaciente, float peso, float estatura, int tel){
@@ -180,5 +183,13 @@ public class Pacientes {
     public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    } 
     
 }
