@@ -22,6 +22,7 @@ import org.apache.ibatis.session.SqlSession;
 import Pojos.Cita;
 import Pojos.Consulta;
 import Pojos.Mensaje;
+import java.util.HashMap;
 /**
  *
  * @author maria
@@ -46,6 +47,60 @@ public class CitayConsulta {
         if(conn != null){ 
             try {
                 resultado = conn.selectList("Cita.getAllCitas");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }else{
+            System.out.println("Error de conexion");
+        }
+        return resultado;
+    }
+
+    /*@Path("citaPaciente")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Cita> citaPaciente (@FormParam("idPaciente") Integer idPaciente){
+        List<Cita> respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        Cita user = new Cita();
+        HashMap<String,Object> param = new HashMap<>();
+        param.put("idPaciente", idPaciente);
+        
+        if(conn != null){
+            try {
+                user = conn.selectList("Cita.getCitaPaciente", param);
+                conn.commit();
+                if( user !=  null && user.getIdPaciente()> 0){
+                    respuesta.setIdCitas(user.getIdCitas());
+                    respuesta.setIdPaciente(user.getIdPaciente());
+                    respuesta.setFecha_cita(user.getFecha_cita());
+                    respuesta.setHora_cita(user.getHora_cita());
+                    respuesta.setObservaciones(user.getObservaciones());
+                }else{
+                    respuesta.setObservaciones("No tienes citas agendadas");
+                }
+            } catch (Exception e) {
+                respuesta.setObservaciones(e.getMessage());
+            }
+        }else{
+            respuesta.setObservaciones("No hay conexión con la BD...");
+        }
+        return respuesta;
+    }*/
+    
+    @Path("citaPaciente")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Cita> getCitaPaciente(@FormParam("idPaciente") Integer idPaciente){
+        List<Cita> resultado = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        HashMap<String,Object> param = new HashMap<>();
+        param.put("idPaciente", idPaciente);
+        if(conn != null){ 
+            try {
+                resultado = conn.selectList("Cita.getCitaPaciente", idPaciente);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally{

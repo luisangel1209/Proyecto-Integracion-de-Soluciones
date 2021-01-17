@@ -13,6 +13,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             observaciones
         FROM citas
     </select>
+
+    <select id="getCitaPaciente" resultType="Pojos.Cita" parameterType="map">
+        SELECT
+            idCitas,
+            idPaciente,
+            fecha_cita,
+            hora_cita,
+            observaciones
+        FROM citas
+        WHERE idPaciente = #{idPaciente}
+    </select>
     
     <insert id="registraCita" parameterType="Pojos.Cita">
         INSERT INTO citas (idCitas, idPaciente, fecha_cita, hora_cita, observaciones)
