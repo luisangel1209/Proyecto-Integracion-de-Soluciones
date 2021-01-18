@@ -5,6 +5,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="Consulta">
+    <select id="getAllConsultas" resultType="Pojos.Consulta">
+        SELECT
+            idConsultas,
+            idPaciente,
+            observaciones,
+            peso,
+            talla,
+            IMC,
+            idDieta
+        FROM consultas
+    </select>
+    
     <insert id="registraConsulta" parameterType="Pojos.Consulta">
         INSERT INTO consultas (idConsultas, idPaciente, observaciones, peso, talla, IMC, idDieta)
         VALUES (#{idConsultas},#{idPaciente},#{observaciones},#{peso},#{talla},#{IMC}, #{idDieta})
