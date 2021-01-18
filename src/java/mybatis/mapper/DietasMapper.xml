@@ -19,6 +19,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INNER JOIN tipoalimento ON dietas.idAlimento = tipoalimento.idAlimento
     </select>
     
+    <select id="getDietaPaciente" resultType="Pojos.Dieta" parameterType="map">
+        SELECT
+        idDieta,
+        numero_dieta,
+        cantidad,
+        hora_dia,
+        calorias_dieta,
+        observaciones,
+        idPaciente,
+        dietas.idAlimento,
+        tipoalimento.nombre as tipo
+        FROM dietas
+        WHERE idPaciente = #{idPaciente}
+        INNER JOIN tipoalimento ON dietas.idAlimento = tipoalimento.idAlimento
+    </select>
+    
     <select id="getTiposAlimentos" resultType="Pojos.TipoAlimento">
         SELECT
         idAlimento,

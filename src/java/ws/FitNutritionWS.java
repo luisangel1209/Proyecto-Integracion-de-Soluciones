@@ -128,6 +128,28 @@ public class FitNutritionWS {
         return paciente;
     }
     
+    @Path("dietaPaciente")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Dieta> getDietaPaciente(@FormParam("idPaciente") Integer idPaciente){
+        List<Dieta> resultado = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        HashMap<String,Object> param = new HashMap<>();
+        param.put("idPaciente", idPaciente);
+        if(conn != null){ 
+            try {
+                resultado = conn.selectList("Dieta.getDietaPaciente", idPaciente);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }else{
+            System.out.println("Error de conexion");
+        }
+        return resultado;
+    }
+    
     @Path("getTiposMedico")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
