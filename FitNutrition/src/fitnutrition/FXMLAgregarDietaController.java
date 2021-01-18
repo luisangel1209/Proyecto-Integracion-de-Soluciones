@@ -51,6 +51,8 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
     //private ComboBox<TipoAlimento> comboalimento;
     @FXML
     private TextField txtidalimento;
+    @FXML
+    private TextField txtidPaciente;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,6 +61,7 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
         tipoalimento = FXCollections.observableArrayList();
         integerTextField(txtcalorias);
         integerTextField(txtnumero_dieta);
+        integerTextField(txtidPaciente);
     }    
 
     void InicializaCampos(NotificaCambios notificacion, boolean isNuevo, Dieta dieta) {
@@ -81,6 +84,8 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
             txthora_dia.setText(dieta.getHora_dia());
             txtcalorias.setText(""+dieta.getCalorias_dieta());
             txtobservaciones.setText(dieta.getObservaciones());
+            txtidPaciente.setText(""+dieta.getIdPaciente());
+            txtidPaciente.setEditable(false);
         }
     }
 
@@ -95,13 +100,14 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
         if(isNuevo){
             String url = Constantes.URL + "fitNutrition/registrarDieta";
             float caloriasDieta = Integer.parseInt(txtcalorias.getText());
-            String parametros = String.format("idAlimento=%s&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s", 
+            String parametros = String.format("idAlimento=%s&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s&idPaciente=%s&", 
                     txtidalimento.getText(),
                     txtnumero_dieta.getText(),
                     txtcantidad.getText(),
                     txthora_dia.getText(),
                     caloriasDieta,
-                    txtobservaciones.getText()
+                    txtobservaciones.getText(),
+                    txtidPaciente.getText()
                     );
             RespuestaWS resp = ConsumoWS.consumoWSPOST(url, parametros);
             if(resp.getCodigo() == 200){
@@ -119,14 +125,15 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
         }else{
             String url = Constantes.URL + "fitNutrition/actualizarDieta";
             float caloriasDieta = Integer.parseInt(txtcalorias.getText());
-            String parametros = String.format("idDieta=%d&idAlimento=%s&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s", 
+            String parametros = String.format("idDieta=%d&idAlimento=%s&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s&idPaciente=%s&", 
                     dieta.getIdDieta(),
                     txtidalimento.getText(),
                     txtnumero_dieta.getText(),
                     txtcantidad.getText(),
                     txthora_dia.getText(),
                     caloriasDieta,
-                    txtobservaciones.getText()
+                    txtobservaciones.getText(),
+                    txtidPaciente.getText()
                     );
             RespuestaWS res = ConsumoWS.consumoWSPUT(url, parametros);
             if(res.getCodigo() == 200){

@@ -23,8 +23,10 @@
       <TextField fx:id="txtcantidad" layoutX="142.0" layoutY="160.0" />
       <TextField fx:id="txthora_dia" layoutX="142.0" layoutY="205.0" />
       <TextField fx:id="txtcalorias" layoutX="142.0" layoutY="247.0" />
-      <TextField fx:id="txtobservaciones" layoutX="142.0" layoutY="293.0" prefHeight="60.0" prefWidth="182.0" />
-      <Button layoutX="150.0" layoutY="365.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="25.0" prefWidth="75.0" text="Guardar" />
+      <TextField fx:id="txtobservaciones" layoutX="142.0" layoutY="293.0" prefHeight="17.0" prefWidth="182.0" />
+      <Button layoutX="151.0" layoutY="370.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="25.0" prefWidth="75.0" text="Guardar" />
       <TextField fx:id="txtidalimento" layoutX="142.0" layoutY="81.0" />
+      <Label layoutX="36.0" layoutY="336.0" text="Paciente" />
+      <TextField fx:id="txtidPaciente" layoutX="142.0" layoutY="332.0" />
    </children>
 </AnchorPane>

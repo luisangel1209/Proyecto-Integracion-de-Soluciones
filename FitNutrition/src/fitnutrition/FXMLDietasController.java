@@ -51,6 +51,8 @@ public class FXMLDietasController implements Initializable, NotificaCambios {
     private TableColumn colobservasiones;
     
     private ObservableList<Dieta> dieta;
+    @FXML
+    private TableColumn colPaciente;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,6 +63,7 @@ public class FXMLDietasController implements Initializable, NotificaCambios {
         this.colhora_dia.setCellValueFactory(new PropertyValueFactory("hora_dia"));
         this.colcalorias.setCellValueFactory(new PropertyValueFactory("calorias_dieta"));
         this.colobservasiones.setCellValueFactory(new PropertyValueFactory("observaciones"));
+        this.colPaciente.setCellValueFactory(new PropertyValueFactory("idPaciente"));
         cargaElementosTabla();
     }    
 
@@ -175,4 +178,3 @@ public class FXMLDietasController implements Initializable, NotificaCambios {
         error.showAndWait();
     }
 }
-

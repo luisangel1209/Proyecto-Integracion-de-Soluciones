@@ -14,14 +14,15 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="tbDieta" layoutX="38.0" layoutY="124.0" prefHeight="227.0" prefWidth="615.0">
+      <TableView fx:id="tbDieta" layoutX="13.0" layoutY="124.0" prefHeight="227.0" prefWidth="669.0">
         <columns>
           <TableColumn fx:id="colidAlimento" prefWidth="108.0" text="Nombre Alimento" />
           <TableColumn fx:id="colnumero_dieta" prefWidth="90.0" text="Numero Dieta" />
             <TableColumn fx:id="colcantidad" prefWidth="78.0" text="Cantidad" />
             <TableColumn fx:id="colhora_dia" prefWidth="107.0" text="Hora del Dia" />
-            <TableColumn fx:id="colcalorias" prefWidth="112.0" text="Calorias de Dieta" />
-            <TableColumn fx:id="colobservasiones" prefWidth="119.0" text="Observaciones" />
+            <TableColumn fx:id="colcalorias" prefWidth="105.0" text="Calorias de Dieta" />
+            <TableColumn fx:id="colobservasiones" prefWidth="106.0" text="Observaciones" />
+            <TableColumn fx:id="colPaciente" prefWidth="75.0" text="Paciente" />
         </columns>
       </TableView>
       <Button layoutX="327.0" layoutY="84.0" mnemonicParsing="false" onAction="#clickAgregar" prefHeight="25.0" prefWidth="92.0" text="Registrar" />
