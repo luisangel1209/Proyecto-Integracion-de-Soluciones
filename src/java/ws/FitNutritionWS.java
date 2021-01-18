@@ -272,9 +272,9 @@ public class FitNutritionWS {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje crearDieta(@FormParam("idAlimento") Integer idAlimento, @FormParam("numero_dieta") Integer numero_dieta, @FormParam("cantidad") String cantidad,
-            @FormParam("hora_dia") String hora_dia, @FormParam("calorias_dieta") float calorias_dieta, @FormParam("observaciones") String observaciones){
+            @FormParam("hora_dia") String hora_dia, @FormParam("calorias_dieta") float calorias_dieta, @FormParam("observaciones") String observaciones, @FormParam("idPaciente") Integer idPaciente){
         Mensaje respuesta = new Mensaje();       
-        Dieta dieta =  new Dieta(0, idAlimento, numero_dieta, cantidad, hora_dia, calorias_dieta, observaciones);
+        Dieta dieta =  new Dieta(0, idAlimento, numero_dieta, cantidad, hora_dia, calorias_dieta, observaciones, idPaciente);
         SqlSession conn = MyBatisUtil.getSession();
         if(conn != null){
             try {

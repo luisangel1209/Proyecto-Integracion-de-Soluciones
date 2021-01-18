@@ -27,8 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id="registrarDieta" parameterType="Pojos.Dieta">
-        INSERT INTO dietas (idAlimento, numero_dieta, cantidad, hora_dia, calorias_dieta, observaciones)
-        VALUES (#{idAlimento},#{numero_dieta},#{cantidad},#{hora_dia},#{calorias_dieta},#{observaciones})
+        INSERT INTO dietas (idAlimento, numero_dieta, cantidad, hora_dia, calorias_dieta, observaciones, idPaciente)
+        VALUES (#{idAlimento},#{numero_dieta},#{cantidad},#{hora_dia},#{calorias_dieta},#{observaciones},#{idPaciente})
     </insert>
     
     <update id="actualizarDieta" parameterType="Pojos.Dieta">

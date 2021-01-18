@@ -9,6 +9,7 @@ public class Dieta {
     private String hora_dia;
     private float calorias_dieta;
     private String observaciones;
+    private int idPaciente;
     
     private String tipo;
 
@@ -26,7 +27,7 @@ public class Dieta {
         this.tipo = tipo;
     }
 
-    public Dieta(int idDieta, int idAlimento, int numero_dieta, String cantidad, String hora_dia, float calorias_dieta, String observaciones) {
+    public Dieta(int idDieta, int idAlimento, int numero_dieta, String cantidad, String hora_dia, float calorias_dieta, String observaciones, int idPaciente) {
         this.idDieta = idDieta;
         this.idAlimento = idAlimento;
         this.numero_dieta = numero_dieta;
@@ -34,6 +35,7 @@ public class Dieta {
         this.hora_dia = hora_dia;
         this.calorias_dieta = calorias_dieta;
         this.observaciones = observaciones;
+        this.idPaciente = idPaciente;
     }
     
     public Dieta(int idDieta, String cantidad, String hora_dia, float calorias_dieta, String observaciones) {
