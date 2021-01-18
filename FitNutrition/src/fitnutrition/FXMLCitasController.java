@@ -72,6 +72,7 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
         this.colObservaciones.setCellValueFactory(new PropertyValueFactory("observaciones"));
         
         cargaElementosTabla();
+        FuncionBuscar();
     }   
     
     private void cargaElementosTabla(){
