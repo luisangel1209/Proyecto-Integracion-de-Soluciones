@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="CitaCancelada">
 
-    <select id="getAllCancelaciones" resultType="pojos.CitasCanceladas">
+    <select id="getAllCancelaciones" resultType="Pojos.CitasCanceladas">
         SELECT
         idCancelacion,
         comentario,
@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM citacancelada
     </select>
     
-    <insert id="registrarCancelacion" parameterType="pojos.CitasCanceladas">
+    <insert id="registrarCancelacion" parameterType="Pojos.CitasCanceladas">
         INSERT INTO citacancelada (comentario, idCitas)
         VALUES (#{comentario}, #{idCitas})
     </insert>
