@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -81,8 +83,8 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
         if(resp.getCodigo() == 200){
             Gson gson = new Gson();
             Type tipolistacita = new TypeToken<List<Citas>>(){}.getType();
-            ArrayList<Citas> medicosBD = gson.fromJson(resp.getMensaje(), tipolistacita);
-            cita = FXCollections.observableArrayList(medicosBD);
+            ArrayList<Citas> citasBD = gson.fromJson(resp.getMensaje(), tipolistacita);
+            cita = FXCollections.observableArrayList(citasBD);
             tbCita.setItems(cita);
         }else{
             DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
@@ -104,7 +106,7 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
             Parent root = loader.load();
             
             FXMLFormularioAgregaCitaController controlador = loader.getController();
-            controlador.InicializaCampos(this,true,null); //falta corregir
+            controlador.InicializaCampos(this,true,null);
                     
             Scene scFormulario = new Scene(root);
             Stage stage = new Stage();
@@ -146,6 +148,43 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
 
     @FXML
     private void clickEliminar(ActionEvent event) {
+       int celda = tbCita.getSelectionModel().getSelectedIndex();
+       if(celda >= 0){
+           Citas aero = cita.get(celda);
+           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           alert.setTitle("Eliminar Registro");
+           alert.setHeaderText(null);
+           alert.setContentText("¿Seguro de eliminar el resgitro de la cita: " + aero.getIdCitas()+" ?");
+           Optional<ButtonType> respboton = alert.showAndWait();
+           if(respboton.get() == ButtonType.OK){
+               EliminaWSRegistro(aero.getIdCitas());
+           }
+       }else{
+           DialogError("Selecciona un registro", "Para eliminar un registro debes seleccionarlo de la tabla");
+       }
+    }
+    
+    private void EliminaWSRegistro(int idCita){
+        String parametro = "idCita="+idCita;
+        String url = Constantes.URL + "fitNuutrition/eliminarCita";
+        RespuestaWS resp = ConsumoWS.consumoWSDELETE(url, parametro);
+        if(resp.getCodigo() == 200){
+            Gson gson = new Gson();
+            Mensaje msj = gson.fromJson(resp.getMensaje(), Mensaje.class);
+            if(msj.isError()){
+                DialogError("Error al eliminar", msj.getMensaje());
+            }else{
+                Alert error = new Alert(Alert.AlertType.INFORMATION);
+                error.setTitle("Registro eliminado");
+                error.setHeaderText(null);
+                error.setContentText(msj.getMensaje());
+                error.showAndWait();
+                tbCita.getItems().clear();
+                cargaElementosTabla();
+            }
+        }else{
+            DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+        }
     }
     
     
