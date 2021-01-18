@@ -17,17 +17,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM consultas
     </select>
     
+    <select id="getConsultaPaciente" resultType="Pojos.Consulta" parameterType="map">
+        SELECT
+            idConsultas,
+            idPaciente,
+            observaciones,
+            peso,
+            talla,
+            IMC,
+            idDieta
+        FROM consultas
+        WHERE idPaciente = #{idPaciente}
+    </select>
+    
     <insert id="registraConsulta" parameterType="Pojos.Consulta">
         INSERT INTO consultas (idConsultas, idPaciente, observaciones, peso, talla, IMC, idDieta)
         VALUES (#{idConsultas},#{idPaciente},#{observaciones},#{peso},#{talla},#{IMC}, #{idDieta})
     </insert>
     
     <update id="editarConsulta" parameterType="Pojos.Consulta">
-        UPDATE consultas SET peso = #{peso}, talla = #{talla}, IMC = #{IMC}, observaciones = #{observaciones}
+        UPDATE consultas SET idPaciente = #{idPaciente}, peso = #{peso}, talla = #{talla}, IMC = #{IMC}, observaciones = #{observaciones}, idDieta = #{idDieta}
         WHERE idConsultas = #{idConsultas}
     </update>
     
-    <delete id="eliminarConsulta" parameterType="Pojos.Consulta">
+    <delete id="eliminarConsulta" parameterType="int">
         DELETE FROM consultas WHERE idConsultas = #{idConsultas}
     </delete>
 </mapper>

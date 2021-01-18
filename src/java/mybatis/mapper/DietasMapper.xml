@@ -28,10 +28,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         calorias_dieta,
         observaciones,
         idPaciente,
-        dietas.idAlimento,
         tipoalimento.nombre as tipo
         FROM dietas, tipoalimento
-        WHERE idPaciente = #{idPaciente}
+        WHERE idPaciente = #{idPaciente} and dietas.idAlimento = tipoalimento.idAlimento
     </select>
     
     <select id="getTiposAlimentos" resultType="Pojos.TipoAlimento">

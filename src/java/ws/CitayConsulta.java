@@ -222,15 +222,37 @@ public class CitayConsulta {
         return resultado;
     }
     
+    @Path("consultaPaciente")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Consulta> getConsultaPaciente(@FormParam("idPaciente") Integer idPaciente){
+        List<Consulta> resultado = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        HashMap<String,Object> param = new HashMap<>();
+        param.put("idPaciente", idPaciente);
+        if(conn != null){ 
+            try {
+                resultado = conn.selectList("Consulta.getConsultaPaciente", idPaciente);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }else{
+            System.out.println("Error de conexion");
+        }
+        return resultado;
+    }
+    
     
     @Path("registraConsulta")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje registraConsulta(@FormParam("observaciones") String observaciones,@FormParam("peso") float peso,@FormParam("talla") int talla,
-            @FormParam("IMC") float IMC){
+    public Mensaje registraConsulta(@FormParam("idPaciente") int idPaciente,@FormParam("observaciones") String observaciones,@FormParam("peso") float peso,@FormParam("talla") int talla,
+            @FormParam("IMC") float IMC, @FormParam("idDieta") int idDieta){
         Mensaje respuesta = new Mensaje();
         
-        Consulta cons = new Consulta (0,1,observaciones,peso,talla,IMC,1);
+        Consulta cons = new Consulta (0,idPaciente,observaciones,peso,talla,IMC,idDieta);
         SqlSession conn = MyBatisUtil.getSession();
         
         if(conn != null){
@@ -258,10 +280,10 @@ public class CitayConsulta {
     @Path("editarConsulta")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje editarConsulta(@FormParam("observaciones") String observaciones,@FormParam("peso") float peso,@FormParam("talla") int talla,
-            @FormParam("IMC") float IMC){
+    public Mensaje editarConsulta(@FormParam("idConsultas") int idConsultas,@FormParam("observaciones") String observaciones,@FormParam("peso") float peso,@FormParam("talla") int talla,
+            @FormParam("IMC") float IMC, @FormParam("idDieta") int idDieta, @FormParam("idPaciente") int idPaciente){
         Mensaje respuesta = new Mensaje();
-        Consulta cons = new Consulta(1,1,observaciones,peso,talla,IMC,1);
+        Consulta cons = new Consulta(idConsultas,idPaciente,observaciones,peso,talla,IMC,idDieta);
         SqlSession conn = MyBatisUtil.getSession();
         if(conn != null){
             try{
@@ -285,7 +307,7 @@ public class CitayConsulta {
         return respuesta;
     }
     
-    @Path("eliminarConsulta")
+    /*@Path("eliminarConsulta")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje eliminarConsulta(@FormParam("idConsulta") Integer idConsultas){
@@ -310,6 +332,35 @@ public class CitayConsulta {
         }else{
             respuesta.setError(true);
             respuesta.setMensaje("No hay conexion con la BD..");
+        }
+        return respuesta;
+    }*/
+    
+    @Path("eliminarConsulta")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarConsulta(@FormParam("idConsulta") Integer idConsultas){
+        Mensaje respuesta = new Mensaje();
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                System.out.println("idcatalogo: "+ idConsultas);
+                int resultado = conn.delete("Consulta.eliminarConsulta", idConsultas);
+                conn.commit();
+                if( resultado > 0 ){
+                    respuesta.setError(false);
+                    respuesta.setMensaje("Registro eliminado correctamente...");
+                }else{
+                    respuesta.setError(true);
+                    respuesta.setMensaje("El registro no se pudo eliminar...");
+                }
+            } catch (Exception e) {
+                respuesta.setError(true);
+                respuesta.setMensaje(e.getMessage());
+            }
+        }else{
+            respuesta.setError(true);
+            respuesta.setMensaje("No hay conexión con la BD...");
         }
         return respuesta;
     }

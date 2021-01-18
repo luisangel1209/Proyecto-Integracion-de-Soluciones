@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <update id="editarCita" parameterType="Pojos.Cita">
-        UPDATE citas SET fecha_cita = #{fecha_cita}, hora_cita = #{hora_cita}, observaciones = #{observaciones}
+        UPDATE citas SET idPaciente = #{idPaciente}, fecha_cita = #{fecha_cita}, hora_cita = #{hora_cita}, observaciones = #{observaciones}
         WHERE idCitas = #{idCitas}
     </update>
     
