@@ -1,5 +1,6 @@
 package ws;
 
+import Pojos.CitasCanceladas;
 import Pojos.Dieta;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -373,6 +374,51 @@ public class FitNutritionWS {
         }else{
             respuesta.setError(true);
             respuesta.setMensaje("No hay conexión con la BD...");
+        }
+        return respuesta;
+    }
+    
+    @Path("getAllCancelaciones")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CitasCanceladas> getCancelaciones(){
+        List<CitasCanceladas> dieta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if (conn != null) {
+            try {
+                dieta = conn.selectList("CitaCancelada.getAllCancelaciones");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return dieta;
+    }
+    
+    @Path("registrarCancelacion")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje crearCancelacion(@FormParam("comentario") String comentario, @FormParam("idCitas") Integer idCitas){
+        Mensaje respuesta = new Mensaje();       
+        CitasCanceladas cancelacion = new CitasCanceladas(0, comentario, idCitas);
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                int resultado = conn.insert("CitaCancelada.registrarCancelacion", cancelacion);
+                conn.commit();
+                if(resultado > 0){
+                    respuesta.setError(false);
+                    respuesta.setMensaje("Comentario agregado con éxito...");
+                }else{
+                    respuesta.setError(true);
+                    respuesta.setMensaje("No se pudo agregar el comentario...");
+                }
+            } catch (Exception e) {
+                respuesta.setError(true);
+                respuesta.setMensaje(e.getMessage());
+            }
+        }else{
+            respuesta.setError(true);
+            respuesta.setMensaje("No se puede conectar con la base de datos...");
         }
         return respuesta;
     }
