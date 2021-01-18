@@ -115,11 +115,11 @@ public class CitayConsulta {
     @Path("registraCita")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje registraCita(@FormParam("fecha_cita")String fecha_cita,@FormParam("hora_cita") String hora_cita,
+    public Mensaje registraCita(@FormParam("idPaciente") int idPaciente,@FormParam("fecha_cita")String fecha_cita,@FormParam("hora_cita") String hora_cita,
             @FormParam("observaciones") String observaciones){
         Mensaje respuesta = new Mensaje();
         
-        Cita cita = new Cita (0,1,fecha_cita,hora_cita,observaciones);
+        Cita cita = new Cita (0,idPaciente,fecha_cita,hora_cita,observaciones);
         SqlSession conn = MyBatisUtil.getSession();
         
         if(conn != null){
@@ -205,12 +205,12 @@ public class CitayConsulta {
     @Path("getAllConsulta")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Consulta> getAllBdAlimentos(){
+    public List<Consulta> getConsultas(){
         List<Consulta> resultado = null;
         SqlSession conn = MyBatisUtil.getSession();
         if(conn != null){
             try {
-                resultado = conn.selectList("CitayConsulta.getAllConsulta");
+                resultado = conn.selectList("Consulta.getAllConsultas");
             } catch (Exception e) {
                 e.printStackTrace();
             } finally{
