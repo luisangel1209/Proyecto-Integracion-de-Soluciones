@@ -13,6 +13,7 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +30,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pojo.Citas;
 import pojo.Consulta;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
@@ -149,8 +152,44 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
     
     @FXML
     private void clickEliminar(ActionEvent event) {
+        int celda = tbConsulta.getSelectionModel().getSelectedIndex();
+       if(celda >= 0){
+           Consulta aero = consulta.get(celda);
+           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           alert.setTitle("Eliminar Registro");
+           alert.setHeaderText(null);
+           alert.setContentText("¿Seguro de eliminar el resgitro de la cita: " + aero.getIdConsultas()+" ?");
+           Optional<ButtonType> respboton = alert.showAndWait();
+           if(respboton.get() == ButtonType.OK){
+               EliminaWSRegistro(aero.getIdConsultas());
+           }
+       }else{
+           DialogError("Selecciona un registro", "Para eliminar un registro debes seleccionarlo de la tabla");
+       }
     }
     
+    private void EliminaWSRegistro(int idConsultas){
+        String parametro = "idConsultas="+idConsultas;
+        String url = Constantes.URL + "fitNuutrition/eliminarConsulta";
+        RespuestaWS resp = ConsumoWS.consumoWSDELETE(url, parametro);
+        if(resp.getCodigo() == 200){
+            Gson gson = new Gson();
+            Mensaje msj = gson.fromJson(resp.getMensaje(), Mensaje.class);
+            if(msj.isError()){
+                DialogError("Error al eliminar", msj.getMensaje());
+            }else{
+                Alert error = new Alert(Alert.AlertType.INFORMATION);
+                error.setTitle("Registro eliminado");
+                error.setHeaderText(null);
+                error.setContentText(msj.getMensaje());
+                error.showAndWait();
+                tbConsulta.getItems().clear();
+                cargaElementosTabla();
+            }
+        }else{
+            DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+        }
+    }
     
     public void RefrescarTlaba(boolean dato) {
         System.out.println("Valor es: "+dato);
