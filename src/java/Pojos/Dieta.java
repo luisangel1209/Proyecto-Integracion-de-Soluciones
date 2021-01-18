@@ -109,5 +109,13 @@ public class Dieta {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
     
 }
