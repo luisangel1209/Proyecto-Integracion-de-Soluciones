@@ -26,8 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id="registraCita" parameterType="Pojos.Cita">
-        INSERT INTO citas (idCitas, idPaciente, fecha_cita, hora_cita, observaciones)
-        VALUES (#{idCitas},#{idPaciente},#{fecha_cita},#{hora_cita},#{observaciones})
+        INSERT INTO citas (idPaciente, fecha_cita, hora_cita, observaciones)
+        VALUES (#{idPaciente},#{fecha_cita},#{hora_cita},#{observaciones})
     </insert>
     
     <update id="editarCita" parameterType="Pojos.Cita">
