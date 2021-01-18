@@ -47,7 +47,7 @@ public class FXMLPrincipalController implements Initializable {
     private void clicDietas(ActionEvent event) {
         try {
             Stage stage = (Stage) lbBienvenido.getScene().getWindow();
-            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPacientes.fxml")));
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLDietas.fxml")));
             stage.setScene(sceneprincipal);
             stage.show();
         } catch (IOException ex) {
@@ -83,7 +83,7 @@ public class FXMLPrincipalController implements Initializable {
     private void clicConsultas(ActionEvent event) {
         try {
             Stage stage = (Stage) lbBienvenido.getScene().getWindow();
-            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPacientes.fxml")));
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLConsultas.fxml")));
             stage.setScene(sceneprincipal);
             stage.show();
         } catch (IOException ex) {
