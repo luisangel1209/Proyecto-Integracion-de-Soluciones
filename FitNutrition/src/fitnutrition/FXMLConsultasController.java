@@ -108,7 +108,7 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioAgregaConsulta.fxml"));
             Parent root = loader.load();
             
-            FXMLFormularioAgregaCitaController controlador = loader.getController();
+            FXMLFormularioAgregaConsultaController controlador = loader.getController();
             controlador.InicializaCampos(this,true,null); //falta corregir
                     
             Scene scFormulario = new Scene(root);
@@ -172,7 +172,7 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
                         String CaseFilter = newValue.toLowerCase();
                         if(busqueda.getIdPaciente().toString().contains(CaseFilter)){
                             return true;
-                        }else if(busqueda.getIdPaciente().toString().contains(CaseFilter)){
+                        }else if(busqueda.getIdConsultas().toString().contains(CaseFilter)){
                             return true;
                         }
                         return false;
