@@ -86,7 +86,9 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
             String url = Constantes.URL + "fitNuutrition/registraCita";
             int idPacientee = Integer.parseInt(idPaciente.getText());
             String date = ""+dpFechaCita.getValue();
-            String parametros = String.format("idPaciente=%s&fechaCita=%s&horaCita=%s&observaciones=%s", 
+            System.out.println("############");
+            System.out.println(date);
+            String parametros = String.format("idPaciente=%s&fecha_cita=%s&hora_cita=%s&observaciones=%s", 
                     idPacientee,
                     date,
                     tfHoraCita.getText(),
@@ -109,7 +111,9 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
         }else{
             String url = Constantes.URL + "fitNuutrition/editarCita";
             int idPacientee = Integer.parseInt(idPaciente.getText());
-            String date = ""+dpFechaCita.getValue();
+            String date = dpFechaCita.getValue().toString();
+            System.out.println("############");
+            System.out.println(date);
             String parametros = String.format("idPaciente=%s&fechaCita=%s&horaCita=%s&observaciones=%s", 
                     idPacientee,
                     date,
