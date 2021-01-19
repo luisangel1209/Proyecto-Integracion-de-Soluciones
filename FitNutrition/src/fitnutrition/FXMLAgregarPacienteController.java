@@ -80,18 +80,19 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
     private Button BotonGuardar;
     //private ComboBox<TipoMedico> combomedico;
     private ObservableList<TipoMedico> tipomedico;
+    //private TextField labelidmedico;
     @FXML
-    private TextField labelidmedico;
+    private ComboBox<TipoMedico> comboidmedico;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cargaElementos();
         tipomedico = FXCollections.observableArrayList();
         comboGenero.setItems(genero);
         comboGenero.setPromptText("Elige el genero");
         comboestatus.setItems(estatus);
         comboestatus.setPromptText("Elige el estatus");
+        cargaElementos();
     }    
 
     public void InicializaCampos(NotificaCambios notificacion, boolean isNuevo, Pacientes paciente){
@@ -108,8 +109,8 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
         if(paciente != null){
             String fecha = paciente.getfNac();
             LocalDate fecha2 = LocalDate.parse(fecha);
-            labelidmedico.setText(paciente.getTipo());
-            labelidmedico.setEditable(false);
+            //labelidmedico.setText(paciente.getTipo());
+            //labelidmedico.setEditable(false);
             labelnombre.setText(paciente.getNombre());
             labelnombre.setEditable(false);
             labelapellidos.setText(paciente.getApellidos());
@@ -126,6 +127,8 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
             labelusuario.setText(paciente.getUsuario());
             labelcontraseña.setText(paciente.getContraseña());
             labelpaciente_foto.setText(paciente.getPaciente_foto());
+            int posCombo = getIndexLista(paciente.getIdMedico());
+            comboidmedico.getSelectionModel().select(posCombo);
             comboestatus.setValue(paciente.getEstatus());
         }
     }
@@ -136,7 +139,7 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
     }
     
     private void DialogError(String titulo, String mensaje){
-        Alert error = new Alert(Alert.AlertType.ERROR);
+        Alert error = new Alert(Alert.AlertType.INFORMATION);
         error.setTitle(titulo);
         error.setHeaderText(null);
         error.setContentText(mensaje);
@@ -149,9 +152,9 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
         notificacion.RefrescarTlaba(true);
     }
     
-    private int getIndexLista(int idTipo){
+    private int getIndexLista(int idMedico){
         for(int i=0; i < tipomedico.size(); i++){
-            if(tipomedico.get(i).getIdMedico() == idTipo){
+            if(tipomedico.get(i).getIdMedico() == idMedico){
                 return i;
             }
         }
@@ -160,7 +163,8 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
 
     @FXML
     private void Guardar(ActionEvent event) {
-        //int idMedico = tipomedico.get(combomedico.getSelectionModel().getSelectedIndex()).getIdMedico();
+        int idMedico = tipomedico.get(comboidmedico.getSelectionModel().getSelectedIndex()).getIdMedico();
+        System.out.println("HOla :"+idMedico);
         if(isNuevo){
             String url = Constantes.URL + "fitNutrition/registrarPaciente";
             float peso = Integer.parseInt(labelpeso.getText());
@@ -171,8 +175,8 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
             String date = ""+labelfNac.getValue();
             String genero = comboGenero.getValue();
             String estatus = comboestatus.getValue();
-            String parametros = String.format("idMedico=%s&nombre=%s&apellidos=%s&fNac=%s&genero=%s&peso=%s&estatura=%s&talla=%s&email=%s&tel=%s&domicilio=%s&usuario=%s&contraseña=%s&paciente_foto=%s&estatus=%s", 
-                    labelidmedico.getText(),
+            String parametros = String.format("idMedico=%d&nombre=%s&apellidos=%s&fNac=%s&genero=%s&peso=%s&estatura=%s&talla=%s&email=%s&tel=%s&domicilio=%s&usuario=%s&contraseña=%s&paciente_foto=%s&estatus=%s", 
+                    idMedico,
                     labelnombre.getText(),
                     labelapellidos.getText(),
                     date,
@@ -211,9 +215,9 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
             String date = ""+labelfNac.getValue();
             String genero = comboGenero.getValue();
             String estatus = comboestatus.getValue();
-            String parametros = String.format("idPaciente=%d&idMedico=%s&nombre=%s&apellidos=%s&fNac=%s&genero=%s&peso=%s&estatura=%s&talla=%s&email=%s&tel=%s&domicilio=%s&usuario=%s&contraseña=%s&paciente_foto=%s&estatus=%s", 
+            String parametros = String.format("idPaciente=%d&idMedico=%d&nombre=%s&apellidos=%s&fNac=%s&genero=%s&peso=%s&estatura=%s&talla=%s&email=%s&tel=%s&domicilio=%s&usuario=%s&contraseña=%s&paciente_foto=%s&estatus=%s", 
                     paciente.getIdPaciente(),
-                    labelidmedico.getText(),
+                    idMedico,
                     labelnombre.getText(),
                     labelapellidos.getText(),
                     date,
@@ -255,7 +259,7 @@ public class FXMLAgregarPacienteController implements Initializable, NotificaCam
             ArrayList<TipoMedico> tipoaerolineaBD = gson.fromJson(resp.getMensaje(), tipolistaaero);
             tipomedico = FXCollections.observableArrayList(tipoaerolineaBD);
             //String tipo = tipoaerolineaBD.get(1).toString();
-            //combomedico.setItems(tipomedico);
+            comboidmedico.setItems(tipomedico);
         }else{
             DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
         }

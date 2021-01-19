@@ -49,19 +49,20 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
     @FXML
     private Label labelTitulo;
     //private ComboBox<TipoAlimento> comboalimento;
-    @FXML
-    private TextField txtidalimento;
+    //private TextField txtidalimento;
     @FXML
     private TextField txtidPaciente;
+    @FXML
+    private ComboBox<TipoAlimento> comboalimento;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //cargaElementos();
         tipoalimento = FXCollections.observableArrayList();
         integerTextField(txtcalorias);
         integerTextField(txtnumero_dieta);
         integerTextField(txtidPaciente);
+        cargaElementos();
     }    
 
     void InicializaCampos(NotificaCambios notificacion, boolean isNuevo, Dieta dieta) {
@@ -76,8 +77,8 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
     
     private void cargaDatosEdicion(){
         if(dieta != null){
-            txtidalimento.setEditable(false);
-            txtidalimento.setText(dieta.getTipo());
+            //txtidalimento.setEditable(false);
+            //txtidalimento.setText(dieta.getTipo());
             txtnumero_dieta.setEditable(false);
             txtnumero_dieta.setText(""+dieta.getNumero_dieta());
             txtcantidad.setText(dieta.getCantidad());
@@ -86,6 +87,8 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
             txtobservaciones.setText(dieta.getObservaciones());
             txtidPaciente.setText(""+dieta.getIdPaciente());
             txtidPaciente.setEditable(false);
+            int posCombo = getIndexLista(dieta.getIdAlimento());
+            comboalimento.getSelectionModel().select(posCombo);
         }
     }
 
@@ -96,12 +99,12 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
 
     @FXML
     private void Guardar(ActionEvent event) {
-        //int idAlimento = tipoalimento.get(comboalimento.getSelectionModel().getSelectedIndex()).getIdAlimento();
+        int idAlimento = tipoalimento.get(comboalimento.getSelectionModel().getSelectedIndex()).getIdAlimento();
         if(isNuevo){
             String url = Constantes.URL + "fitNutrition/registrarDieta";
             float caloriasDieta = Integer.parseInt(txtcalorias.getText());
-            String parametros = String.format("idAlimento=%s&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s&idPaciente=%s&", 
-                    txtidalimento.getText(),
+            String parametros = String.format("idAlimento=%d&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s&idPaciente=%s&", 
+                    idAlimento,
                     txtnumero_dieta.getText(),
                     txtcantidad.getText(),
                     txthora_dia.getText(),
@@ -125,9 +128,9 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
         }else{
             String url = Constantes.URL + "fitNutrition/actualizarDieta";
             float caloriasDieta = Integer.parseInt(txtcalorias.getText());
-            String parametros = String.format("idDieta=%d&idAlimento=%s&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s&idPaciente=%s&", 
+            String parametros = String.format("idDieta=%d&idAlimento=%d&numero_dieta=%s&cantidad=%s&hora_dia=%s&calorias_dieta=%s&observaciones=%s&idPaciente=%s&", 
                     dieta.getIdDieta(),
-                    txtidalimento.getText(),
+                    idAlimento,
                     txtnumero_dieta.getText(),
                     txtcantidad.getText(),
                     txthora_dia.getText(),
@@ -152,7 +155,7 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
     }
 
     private void DialogError(String titulo, String mensaje){
-        Alert error = new Alert(Alert.AlertType.ERROR);
+        Alert error = new Alert(Alert.AlertType.INFORMATION);
         error.setTitle(titulo);
         error.setHeaderText(null);
         error.setContentText(mensaje);
@@ -197,7 +200,7 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
             tipoalimento = FXCollections.observableArrayList(tipoaerolineaBD);
             String tipo = tipoaerolineaBD.get(1).toString();
             //System.out.println(tipo);
-            //comboalimento.setItems(tipoalimento);
+            comboalimento.setItems(tipoalimento);
         }else{
             DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
         }

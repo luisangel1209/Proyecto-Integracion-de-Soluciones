@@ -107,6 +107,6 @@
       <ImageView fx:id="fotopaciente" fitHeight="150.0" fitWidth="149.0" layoutX="553.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" />
       <ComboBox fx:id="comboGenero" layoutX="98.0" layoutY="207.0" prefWidth="150.0" promptText="Elige" />
       <Button fx:id="BotonGuardar" layoutX="593.0" layoutY="283.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="25.0" prefWidth="70.0" text="Guardar" />
-      <TextField fx:id="labelidmedico" layoutX="99.0" layoutY="60.0" />
+      <ComboBox fx:id="comboidmedico" layoutX="98.0" layoutY="60.0" prefWidth="150.0" promptText="Elige medico" />
    </children>
 </AnchorPane>

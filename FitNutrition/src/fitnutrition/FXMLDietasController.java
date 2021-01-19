@@ -171,7 +171,7 @@ public class FXMLDietasController implements Initializable, NotificaCambios {
     }
     
     private void DialogError(String titulo, String mensaje){
-        Alert error = new Alert(Alert.AlertType.ERROR);
+        Alert error = new Alert(Alert.AlertType.INFORMATION);
         error.setTitle(titulo);
         error.setHeaderText(null);
         error.setContentText(mensaje);
