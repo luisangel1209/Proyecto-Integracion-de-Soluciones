@@ -26,7 +26,7 @@
       <TextField fx:id="lbApellido" layoutX="117.0" layoutY="96.0" />
       <TextField fx:id="lbDomicilio" layoutX="117.0" layoutY="220.0" />
       <ComboBox fx:id="comboEstatus" layoutX="356.0" layoutY="134.0" prefWidth="150.0" />
-      <Label layoutX="528.0" layoutY="66.0" text="Logo Aerolinea" />
+      <Label layoutX="528.0" layoutY="66.0" text="Foto Médico" />
       <Button layoutX="637.0" layoutY="62.0" mnemonicParsing="false" onAction="#clickSeleccionar" text="Seleccionar" />
       <ImageView fx:id="fotoMedico" fitHeight="194.0" fitWidth="200.0" layoutX="522.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="BotonGuardar" layoutX="446.0" layoutY="257.0" mnemonicParsing="false" onAction="#Guardar" text="Guardar" />

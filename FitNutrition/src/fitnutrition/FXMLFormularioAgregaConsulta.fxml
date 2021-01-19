@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLFormularioAgregaConsultaController">
+<AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitnutrition.FXMLFormularioAgregaConsultaController">
    <children>
       <Label fx:id="labelTitulo" layoutX="14.0" layoutY="14.0" text="Agrega Consulta">
          <font>
@@ -23,6 +23,8 @@
       <TextField fx:id="tfImc" layoutX="80.0" layoutY="195.0" />
       <Label layoutX="14.0" layoutY="246.0" text="Observaciones" />
       <TextField fx:id="tfObservaciones" layoutX="102.0" layoutY="242.0" prefHeight="143.0" prefWidth="338.0" />
-      <Button fx:id="botonGuardar" layoutX="482.0" layoutY="57.0" mnemonicParsing="false" onAction="#clicEnviar" text="Guardar" />
+      <Button fx:id="botonGuardar" layoutX="492.0" layoutY="289.0" mnemonicParsing="false" onAction="#clicEnviar" text="Guardar" />
+      <Label layoutX="271.0" layoutY="61.0" text="Dieta" />
+      <TextField fx:id="textDieta" layoutX="313.0" layoutY="57.0" />
    </children>
 </AnchorPane>

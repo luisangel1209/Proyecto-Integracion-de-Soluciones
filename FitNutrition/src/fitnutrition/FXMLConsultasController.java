@@ -77,7 +77,7 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
         this.colObservaciones.setCellValueFactory(new PropertyValueFactory("observaciones"));
         this.colPeso.setCellValueFactory(new PropertyValueFactory("peso"));
         this.colTalla.setCellValueFactory(new PropertyValueFactory("talla"));
-        this.colImc.setCellValueFactory(new PropertyValueFactory("imc"));
+        this.colImc.setCellValueFactory(new PropertyValueFactory("IMC"));
         
         cargaElementosTabla();
         FuncionBuscar();
@@ -153,23 +153,24 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
     @FXML
     private void clickEliminar(ActionEvent event) {
         int celda = tbConsulta.getSelectionModel().getSelectedIndex();
-       if(celda >= 0){
-           Consulta aero = consulta.get(celda);
-           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-           alert.setTitle("Eliminar Registro");
-           alert.setHeaderText(null);
-           alert.setContentText("¿Seguro de eliminar el resgitro de la cita: " + aero.getIdConsultas()+" ?");
-           Optional<ButtonType> respboton = alert.showAndWait();
-           if(respboton.get() == ButtonType.OK){
-               EliminaWSRegistro(aero.getIdConsultas());
-           }
-       }else{
-           DialogError("Selecciona un registro", "Para eliminar un registro debes seleccionarlo de la tabla");
-       }
+        if(celda >= 0){
+            System.out.println("numero "+celda);
+            Consulta aero = consulta.get(celda);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar Registro");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Seguro de eliminar el resgitro de la cita: " + aero.getIdConsultas()+" ?");
+            Optional<ButtonType> respboton = alert.showAndWait();
+            if(respboton.get() == ButtonType.OK){
+                EliminaWSRegistro(aero.getIdConsultas());
+            }
+        }else{
+            DialogError("Selecciona un registro", "Para eliminar un registro debes seleccionarlo de la tabla");
+        }
     }
     
     private void EliminaWSRegistro(int idConsultas){
-        String parametro = "idConsultas="+idConsultas;
+        String parametro = "idConsulta="+idConsultas;
         String url = Constantes.URL + "fitNuutrition/eliminarConsulta";
         RespuestaWS resp = ConsumoWS.consumoWSDELETE(url, parametro);
         if(resp.getCodigo() == 200){
@@ -183,7 +184,7 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
                 error.setHeaderText(null);
                 error.setContentText(msj.getMensaje());
                 error.showAndWait();
-                tbConsulta.getItems().clear();
+                //tbConsulta.getItems().clear();
                 cargaElementosTabla();
             }
         }else{
@@ -193,7 +194,7 @@ public class FXMLConsultasController implements Initializable, NotificaCambios {
     
     public void RefrescarTlaba(boolean dato) {
         System.out.println("Valor es: "+dato);
-        tbConsulta.getItems().clear();
+        //tbConsulta.getItems().clear();
         cargaElementosTabla();
     }
     

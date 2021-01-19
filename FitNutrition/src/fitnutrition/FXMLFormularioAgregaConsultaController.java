@@ -56,6 +56,8 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
     private NotificaCambios notificacion;
     private boolean isNuevo;
     private Consulta consulta;
+    @FXML
+    private TextField textDieta;
 
     /**
      * Initializes the controller class.
@@ -82,6 +84,7 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
             tfPeso.setText(Float.toString(consulta.getPeso()));
             tfTalla.setText(Integer.toString(consulta.getTalla()));
             tfImc.setText(Float.toString(consulta.getIMC()));
+            textDieta.setText(Integer.toString(consulta.getIdDieta()));
         }
     }
     
@@ -90,13 +93,14 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
         if(isNuevo){
             String url = Constantes.URL + "fitNuutrition/registraConsulta";
             int idPacientee = Integer.parseInt(idPaciente.getText());
-            
-            String parametros = String.format("idPaciente=%s&peso=%s&talla=%s&imc=%s&observaciones=%s", 
+            int idDieta = Integer.parseInt(textDieta.getText());
+            String parametros = String.format("idPaciente=%d&observaciones=%s&peso=%s&talla=%s&IMC=%s&idDieta=%d", 
                     idPacientee,
+                    tfObservaciones.getText(),
                     tfPeso.getText(),
                     tfTalla.getText(),
                     tfImc.getText(),
-                    tfObservaciones.getText()
+                    idDieta
                     );
             
             RespuestaWS resp = ConsumoWS.consumoWSPOST(url, parametros);
@@ -115,12 +119,15 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
         }else{
             String url = Constantes.URL + "fitNuutrition/editarConsulta";
             int idPacientee = Integer.parseInt(idPaciente.getText());
-            String parametros = String.format("idPaciente=%s&peso=%s&talla=%s&imc=%s&observaciones=%s", 
+            int idDieta = Integer.parseInt(textDieta.getText());
+            String parametros = String.format("idConsultas=%d&idPaciente=%d&observaciones=%s&peso=%s&talla=%s&IMC=%s&idDieta=%d", 
+                    consulta.getIdConsultas(),
                     idPacientee,
+                    tfObservaciones.getText(),
                     tfPeso.getText(),
                     tfTalla.getText(),
                     tfImc.getText(),
-                    tfObservaciones.getText()                    
+                    idDieta
                     );
             RespuestaWS res = ConsumoWS.consumoWSPUT(url, parametros);
             if(res.getCodigo() == 200){

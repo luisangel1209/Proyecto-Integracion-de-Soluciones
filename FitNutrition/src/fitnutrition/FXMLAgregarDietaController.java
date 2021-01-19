@@ -57,7 +57,7 @@ public class FXMLAgregarDietaController implements Initializable, NotificaCambio
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cargaElementos();
+        //cargaElementos();
         tipoalimento = FXCollections.observableArrayList();
         integerTextField(txtcalorias);
         integerTextField(txtnumero_dieta);

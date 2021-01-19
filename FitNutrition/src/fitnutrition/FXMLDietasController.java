@@ -177,4 +177,16 @@ public class FXMLDietasController implements Initializable, NotificaCambios {
         error.setContentText(mensaje);
         error.showAndWait();
     }
+
+    @FXML
+    private void Regresar(ActionEvent event) {
+        try {
+            Stage stage = (Stage) tbDieta.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

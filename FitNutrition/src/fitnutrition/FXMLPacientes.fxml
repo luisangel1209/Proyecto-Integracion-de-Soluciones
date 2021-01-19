@@ -39,5 +39,6 @@
       <TextField fx:id="TextBuscar" layoutX="98.0" layoutY="63.0" prefHeight="25.0" prefWidth="176.0" promptText="Nombre" />
       <Button fx:id="BotonActivar" layoutX="724.0" layoutY="63.0" mnemonicParsing="false" onAction="#Activar" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #38d00a;" text="Activar" textFill="#fcfffb" />
       <Button fx:id="BotonDarBaja" layoutX="822.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickDarBaja" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: A93226;" text="Dar de Baja" textFill="WHITE" />
+      <Button layoutX="936.0" layoutY="19.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="71.0" text="Regresar" />
    </children>
 </AnchorPane>

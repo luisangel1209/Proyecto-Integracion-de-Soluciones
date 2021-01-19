@@ -179,7 +179,7 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
                 error.setHeaderText(null);
                 error.setContentText(msj.getMensaje());
                 error.showAndWait();
-                tbCita.getItems().clear();
+                //tbCita.getItems().clear();
                 cargaElementosTabla();
             }
         }else{
@@ -190,7 +190,7 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
     
     public void RefrescarTlaba(boolean dato) {
         System.out.println("Valor es: "+dato);
-        tbCita.getItems().clear();
+        //tbCita.getItems().clear();
         cargaElementosTabla();
     }
     

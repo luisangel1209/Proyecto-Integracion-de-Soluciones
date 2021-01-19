@@ -28,5 +28,6 @@
       <Button layoutX="327.0" layoutY="84.0" mnemonicParsing="false" onAction="#clickAgregar" prefHeight="25.0" prefWidth="92.0" text="Registrar" />
       <Button layoutX="431.0" layoutY="84.0" mnemonicParsing="false" onAction="#clickEditar" prefHeight="25.0" prefWidth="92.0" text="Editar" />
       <Button layoutX="537.0" layoutY="84.0" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="25.0" prefWidth="92.0" text="Eliminar" />
+      <Button layoutX="577.0" layoutY="14.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="71.0" text="Regresar"/>
    </children>
 </AnchorPane>

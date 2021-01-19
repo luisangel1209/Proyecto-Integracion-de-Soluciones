@@ -35,13 +35,10 @@
       </TableView>
       <Button layoutX="524.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickAgregar" prefHeight="25.0" prefWidth="77.0" text="Registrar" />
       <Button layoutX="620.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickEditar" prefHeight="25.0" prefWidth="77.0" text="Editar" />
-      <Button layoutX="717.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="25.0" prefWidth="77.0" text="Baja" />
       <Label layoutX="28.0" layoutY="67.0" text="Buscar por:" />
       <TextField fx:id="TextBuscar" layoutX="98.0" layoutY="63.0" prefHeight="25.0" prefWidth="176.0" promptText="Nombre" />
-      <Button layoutX="936.0" layoutY="19.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="71.0" text="Regresar">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Button>
+      <Button fx:id="BotonActivar" layoutX="724.0" layoutY="63.0" mnemonicParsing="false" onAction="#Activar" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #38d00a;" text="Activar" textFill="#fcfffb" />
+      <Button fx:id="BotonDarBaja" layoutX="822.0" layoutY="63.0" mnemonicParsing="false" onAction="#clickDarBaja" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: A93226;" text="Dar de Baja" textFill="WHITE" />
+      <Button layoutX="936.0" layoutY="19.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="71.0" text="Regresar" />
    </children>
 </AnchorPane>

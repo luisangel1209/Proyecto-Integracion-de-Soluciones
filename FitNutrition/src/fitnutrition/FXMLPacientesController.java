@@ -221,7 +221,6 @@ public class FXMLPacientesController implements Initializable, NotificaCambios {
         }
     }
 
-    @FXML
     private void Baja(MouseEvent event) {
         String bandera = tbPacientes.getSelectionModel().getSelectedItem().getEstatus();
         if(!"Activo".equals(bandera)){
@@ -253,6 +252,18 @@ public class FXMLPacientesController implements Initializable, NotificaCambios {
             }
         }else{
             DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+        }
+    }
+
+    @FXML
+    private void Regresar(ActionEvent event) {
+        try {
+            Stage stage = (Stage) TextBuscar.getScene().getWindow();
+            Scene sceneprincipal = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(sceneprincipal);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
