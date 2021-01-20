@@ -21,13 +21,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pojo.Consulta;
+import pojo.TipoPaciente;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
+import pojo.TipoPaciente;
 import util.Constantes;
 import util.ConsumoWS;
 
@@ -40,7 +43,6 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
 
     @FXML
     private Label labelTitulo;
-    @FXML
     private TextField idPaciente;
     @FXML
     private TextField tfPeso;
@@ -52,12 +54,14 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
     private Button botonGuardar;
     @FXML
     private TextField tfObservaciones;
-    
+    @FXML
+    private ComboBox<TipoPaciente> comboPaciente;
+    private ObservableList<TipoPaciente> Pacientes;
+
     private NotificaCambios notificacion;
     private boolean isNuevo;
     private Consulta consulta;
-    @FXML
-    private TextField textDieta;
+        
 
     /**
      * Initializes the controller class.
@@ -65,6 +69,8 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Pacientes = FXCollections.observableArrayList();
+        cargaElementos();
     }    
     
     public void InicializaCampos(NotificaCambios notificacion, boolean isNuevo, Consulta consulta){
@@ -72,35 +78,34 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
         this.consulta = consulta;
         this.notificacion = notificacion;
         if(!isNuevo){
-            labelTitulo.setText("Editar cita");
+            labelTitulo.setText("Editar consulta");
             cargaDatosEdicion();
         }
     }
     
     private void cargaDatosEdicion(){
         if(consulta != null){
+            int posCombo = getIndexLista(consulta.getIdPaciente());
+            comboPaciente.getSelectionModel().select(posCombo);
             idPaciente.setText( (consulta.getIdPaciente()).toString());
             tfObservaciones.setText(consulta.getObservaciones());
             tfPeso.setText(Float.toString(consulta.getPeso()));
             tfTalla.setText(Integer.toString(consulta.getTalla()));
             tfImc.setText(Float.toString(consulta.getIMC()));
-            textDieta.setText(Integer.toString(consulta.getIdDieta()));
         }
     }
     
     @FXML
     private void clicEnviar (ActionEvent e){
+        int idPacientee = Pacientes.get(comboPaciente.getSelectionModel().getSelectedIndex()).getIdPaciente();
         if(isNuevo){
             String url = Constantes.URL + "fitNuutrition/registraConsulta";
-            int idPacientee = Integer.parseInt(idPaciente.getText());
-            int idDieta = Integer.parseInt(textDieta.getText());
             String parametros = String.format("idPaciente=%d&observaciones=%s&peso=%s&talla=%s&IMC=%s&idDieta=%d", 
                     idPacientee,
                     tfObservaciones.getText(),
                     tfPeso.getText(),
                     tfTalla.getText(),
-                    tfImc.getText(),
-                    idDieta
+                    tfImc.getText()
                     );
             
             RespuestaWS resp = ConsumoWS.consumoWSPOST(url, parametros);
@@ -118,16 +123,14 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
             }
         }else{
             String url = Constantes.URL + "fitNuutrition/editarConsulta";
-            int idPacientee = Integer.parseInt(idPaciente.getText());
-            int idDieta = Integer.parseInt(textDieta.getText());
+            //int idPacientee = Pacientes.get(comboPaciente.getSelectionModel().getSelectedIndex()).getIdPaciente();
             String parametros = String.format("idConsultas=%d&idPaciente=%d&observaciones=%s&peso=%s&talla=%s&IMC=%s&idDieta=%d", 
                     consulta.getIdConsultas(),
                     idPacientee,
                     tfObservaciones.getText(),
                     tfPeso.getText(),
                     tfTalla.getText(),
-                    tfImc.getText(),
-                    idDieta
+                    tfImc.getText()
                     );
             RespuestaWS res = ConsumoWS.consumoWSPUT(url, parametros);
             if(res.getCodigo() == 200){
@@ -167,7 +170,31 @@ public class FXMLFormularioAgregaConsultaController implements Initializable, No
         stage.close();
         notificacion.RefrescarTlaba(true);
     }
+     
+    private void cargaElementos(){
+        String url = Constantes.URL + "fitNuutrition/allPacientee";
+        RespuestaWS resp = ConsumoWS.consumoWSGET(url);
+        if(resp.getCodigo() == 200){
+            Gson gson = new Gson();
+            Type tipolistaaero = new TypeToken<List<TipoPaciente>>(){}.getType();
+            ArrayList<TipoPaciente> tipoaerolineaBD = gson.fromJson(resp.getMensaje(), tipolistaaero);
+            Pacientes = FXCollections.observableArrayList(tipoaerolineaBD);
+            String tipo = tipoaerolineaBD.get(1).toString();
+            System.out.println(tipo);
+            comboPaciente.setItems(Pacientes);  
+        }else{
+            DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+        }
+    }
     
+    private int getIndexLista(int idTipo){
+        for(int i=0; i < Pacientes.size(); i++){
+            if(Pacientes.get(i).getIdPaciente() == idTipo){
+                return i;
+            }
+        }
+    return 0;
+    }
     
     @Override
     public void RefrescarTlaba(boolean dato){
