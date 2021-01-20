@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,6 +24,8 @@ import javafx.stage.Stage;
 import pojo.Citas;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
+import pojo.Pacientes;
+import pojo.TipoPaciente;
 import util.Constantes;
 import util.ConsumoWS;
 
@@ -33,8 +36,6 @@ import util.ConsumoWS;
  */
 public class FXMLFormularioAgregaCitaController implements Initializable, NotificaCambios {
 
-    @FXML
-    private TextField idPaciente;
     @FXML
     private DatePicker dpFechaCita;
     @FXML
@@ -49,7 +50,9 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
     private Citas cita;
     @FXML
     private Button botonGuardar;
-    
+    @FXML
+    private ComboBox<TipoPaciente> comboPaciente;
+    private ObservableList<TipoPaciente> Pacientes;
 
     /**
      * Initializes the controller class.
@@ -57,6 +60,9 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Pacientes = FXCollections.observableArrayList();
+        cargaElementos();
+        
     }
 
     public void InicializaCampos(NotificaCambios notificacion, boolean isNuevo, Citas cita){
@@ -71,7 +77,8 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
     
     private void cargaDatosEdicion(){
         if(cita != null){
-            idPaciente.setText(cita.getIdPaciente().toString());
+            int posCombo = getIndexLista(cita.getIdPaciente());
+            comboPaciente.getSelectionModel().select(posCombo);
             String fecha = cita.getFecha_Cita();
             LocalDate fecha2 = LocalDate.parse(fecha);
             dpFechaCita.setValue(fecha2);
@@ -82,9 +89,10 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
     
     @FXML 
     private void clicEnviar (ActionEvent e){
+        int idPacientee = Pacientes.get(comboPaciente.getSelectionModel().getSelectedIndex()).getIdPaciente();
         if(isNuevo){
             String url = Constantes.URL + "fitNuutrition/registraCita";
-            int idPacientee = Integer.parseInt(idPaciente.getText());
+         
             String date = ""+dpFechaCita.getValue();
             //System.out.println("############");
             //System.out.println(date);
@@ -110,7 +118,7 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
             }
         }else{
             String url = Constantes.URL + "fitNuutrition/editarCita";
-            int idPacientee = Integer.parseInt(idPaciente.getText());
+            
             String date = dpFechaCita.getValue().toString();
             //System.out.println("############");
             //System.out.println(date);
@@ -143,6 +151,22 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
         notificacion.RefrescarTlaba(true);
     }
     
+    private void cargaElementos(){
+        String url = Constantes.URL + "fitNuutrition/allPaciente";
+        RespuestaWS resp = ConsumoWS.consumoWSGET(url);
+        if(resp.getCodigo() == 200){
+            Gson gson = new Gson();
+            Type tipolistaaero = new TypeToken<List<TipoPaciente>>(){}.getType();
+            ArrayList<TipoPaciente> tipoaerolineaBD = gson.fromJson(resp.getMensaje(), tipolistaaero);
+            Pacientes = FXCollections.observableArrayList(tipoaerolineaBD);
+            String tipo = tipoaerolineaBD.get(1).toString();
+            System.out.println(tipo);
+            comboPaciente.setItems(Pacientes);  
+        }else{
+            DialogError("Error de conexión", "Lo sentimos, tenemos problemas para conectar con el servidor");
+        }
+    }
+    
     private void muestraDialogo(String titulo, String mensaje){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -159,6 +183,14 @@ public class FXMLFormularioAgregaCitaController implements Initializable, Notifi
         error.showAndWait();
     }
     
+     private int getIndexLista(int idTipo){
+        for(int i=0; i < Pacientes.size(); i++){
+            if(Pacientes.get(i).getIdPaciente() == idTipo){
+                return i;
+            }
+        }
+        return 0;
+    }
     
     @Override
     public void RefrescarTlaba(boolean dato){
