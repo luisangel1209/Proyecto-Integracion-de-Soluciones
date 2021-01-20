@@ -39,6 +39,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pojo.Citas;
 import pojo.Consulta;
+import pojo.TipoPaciente;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
 import util.Constantes;
