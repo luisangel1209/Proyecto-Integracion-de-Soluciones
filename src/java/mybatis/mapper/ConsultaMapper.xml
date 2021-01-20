@@ -30,6 +30,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE idPaciente = #{idPaciente}
     </select>
     
+    <select id="getPaciente" resultType="Pojos.TipoPaciente">
+        SELECT 
+            idPaciente,
+            nombre,
+            apellidos
+        FROM pacientes 
+    </select>
+    
     <insert id="registraConsulta" parameterType="Pojos.Consulta">
         INSERT INTO consultas (idConsultas, idPaciente, observaciones, peso, talla, IMC, idDieta)
         VALUES (#{idConsultas},#{idPaciente},#{observaciones},#{peso},#{talla},#{IMC}, #{idDieta})
