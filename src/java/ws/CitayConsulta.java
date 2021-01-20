@@ -22,6 +22,8 @@ import org.apache.ibatis.session.SqlSession;
 import Pojos.Cita;
 import Pojos.Consulta;
 import Pojos.Mensaje;
+import Pojos.Pacientes;
+import Pojos.TipoPaciente;
 import java.util.HashMap;
 /**
  *
@@ -58,6 +60,26 @@ public class CitayConsulta {
         return resultado;
     }
 
+    @Path("allPaciente")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TipoPaciente> getAllPacientes(){
+        List<TipoPaciente> aero = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                aero = conn.selectList("Cita.getPaciente");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }else{
+            System.out.println("Error de conexion");
+        }
+        return aero;
+    }    
+    
     /*@Path("citaPaciente")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -222,6 +244,26 @@ public class CitayConsulta {
         return resultado;
     }
     
+    @Path("allPacientee")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TipoPaciente> AllPacientes(){
+        List<TipoPaciente> aero = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                aero = conn.selectList("Cita.getPaciente");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }else{
+            System.out.println("Error de conexion");
+        }
+        return aero;
+    }
+    
     @Path("consultaPaciente")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -365,4 +407,3 @@ public class CitayConsulta {
         return respuesta;
     }
 }
-
