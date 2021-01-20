@@ -11,7 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             fecha_cita,
             hora_cita,
             observaciones
-        FROM citas
+        FROM citas 
+    </select>
+    
+    <select id="getPaciente" resultType="Pojos.TipoPaciente">
+        SELECT 
+            idPaciente,
+            nombre,
+            apellidos
+        FROM pacientes 
     </select>
 
     <select id="getCitaPaciente" resultType="Pojos.Cita" parameterType="map">
