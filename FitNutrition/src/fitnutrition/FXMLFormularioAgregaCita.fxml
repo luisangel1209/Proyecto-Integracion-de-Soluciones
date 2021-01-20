@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -14,8 +15,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="21.0" layoutY="80.0" text="id Paciente" />
-      <TextField fx:id="idPaciente" layoutX="90.0" layoutY="76.0" />
+      <Label layoutX="21.0" layoutY="80.0" text="Paciente" />
       <Label layoutX="21.0" layoutY="121.0" text="Fecha Cita" />
       <DatePicker fx:id="dpFechaCita" layoutX="83.0" layoutY="117.0" />
       <Label layoutX="21.0" layoutY="162.0" text="Hora Cita" />
@@ -23,5 +23,6 @@
       <Label layoutX="21.0" layoutY="200.0" text="Observaciones" />
       <TextField fx:id="tfObservaciones" layoutX="108.0" layoutY="196.0" prefHeight="92.0" prefWidth="282.0" />
       <Button fx:id="botonGuardar" layoutX="390.0" layoutY="68.0" mnemonicParsing="false" onAction="#clicEnviar" text="Guardar" />
+      <ComboBox fx:id="comboPaciente" layoutX="83.0" layoutY="76.0" prefWidth="150.0" promptText="Elige paciente" />
    </children>
 </AnchorPane>
