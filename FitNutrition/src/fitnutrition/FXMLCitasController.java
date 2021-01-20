@@ -33,6 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pojo.Citas;
+import pojo.TipoPaciente;
 import pojo.Mensaje;
 import pojo.RespuestaWS;
 import util.Constantes;
@@ -51,9 +52,11 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
     @FXML
     private TextField tfBuscar;
     @FXML
-    private TableView<Citas> tbCita;
-    @FXML
     private TableColumn colIdPaciente;
+    @FXML
+    private TableColumn colNomPaciente;
+    @FXML
+    private TableView<Citas> tbCita;
     @FXML
     private TableColumn colFechaCita;
     @FXML
@@ -69,6 +72,7 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.colIdPaciente.setCellValueFactory(new PropertyValueFactory("idPaciente"));
+        this.colNomPaciente.setCellValueFactory(new PropertyValueFactory("nombre"));
         this.colFechaCita.setCellValueFactory(new PropertyValueFactory("fecha_cita"));
         this.colHoraCita.setCellValueFactory(new PropertyValueFactory("hora_cita"));
         this.colObservaciones.setCellValueFactory(new PropertyValueFactory("observaciones"));
@@ -113,7 +117,6 @@ public class FXMLCitasController implements Initializable, NotificaCambios {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scFormulario);
             stage.showAndWait();
-            
             
         } catch(IOException ex){
             System.out.println("Error al cargar ventana");
